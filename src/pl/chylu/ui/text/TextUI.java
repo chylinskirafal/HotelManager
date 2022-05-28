@@ -7,11 +7,12 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TextUI {
-    public void showSystemInfo(String hotelName, int systemVersion, boolean isDeveloperVersion) {
-        System.out.println("Witam w systemie rezerwacji dla hotelu " + hotelName);
-        System.out.println("Aktualna wersja systemu: " + systemVersion);
-        System.out.println("Wersja developerska: " + isDeveloperVersion);
-        System.out.println("\n=========================\n");
+    public void showSystemInfo(String hotelName, double systemVersion, boolean isDeveloperVersion) {
+        System.out.println("Witam w systemie rezerwacji dla hotelu " + hotelName +
+                "\nAktualna wersja systemu: " + systemVersion +
+                "\nWersja developerska: " + isDeveloperVersion +
+                "\n=========================\n"
+        );
     }
 
     public void showMainMenu() {
@@ -21,14 +22,18 @@ public class TextUI {
         try {
             performAction(input);
         } catch (WrongOptionException | OnlyNumberException e) {
-            System.out.println("Wystąpił niespodziewany błąd");
-            System.out.println("Kod błędu: " + e.getCode());
-            System.out.println("Komunikat błędu: " + e.getMessage());
+            System.out.println(
+                    "Wystąpił niespodziewany błąd" +
+                    "\nKod błędu: " + e.getCode() +
+                    "Komunikat błędu: " + e.getMessage()
+                    );
             e.printStackTrace();
         } catch (Exception e) {
-            System.out.println("Wystąpił niespodziewany błąd");
-            System.out.println("Nieznany kod błędu");
-            System.out.println("Komunikat błędu: " + e.getMessage());
+            System.out.println(
+                    "Wystąpił niespodziewany błąd" +
+                            "\nNieznany kod błędu" +
+                            "Komunikat błędu: " + e.getMessage()
+            );
             e.printStackTrace();
         }
     }

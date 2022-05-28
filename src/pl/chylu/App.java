@@ -7,7 +7,7 @@ public class App {
 
     public static void main(String[] args) {
         String hotelName = "TimeToSleep";
-        int systemVersion = 1;
+        double systemVersion = 1.0;
         boolean isDeveloperVersion = true;
 
         textUI.showSystemInfo(hotelName, systemVersion, isDeveloperVersion);
