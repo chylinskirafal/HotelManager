@@ -1,6 +1,8 @@
 package pl.chylu.domain.room;
 
 import pl.chylu.domain.repository.Repository;
+import pl.chylu.exception.PersistenceToFileException;
+import pl.chylu.util.Properties;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -26,10 +28,8 @@ public class RoomRepository extends Repository {
     @Override
     protected void saveAll() {
         String name = "room.csv";
-        Path file = Paths.get(
-                System.getProperty("user.home"),
-                "reservation_system",
-                name);
+        Path file = Paths.get(Properties.DATA_DIRECTORY.toString(), name);
+
         StringBuilder sb = new StringBuilder("");
         for(Room room : this.rooms) {
             sb.append(room.toCSV());
@@ -41,16 +41,14 @@ public class RoomRepository extends Repository {
             }
             Files.writeString(file, sb.toString(), StandardCharsets.UTF_8);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new PersistenceToFileException(file.toString(), "save", "room data");
         }
     }
     @Override
     protected void readAll() {
         String name = "room.csv";
-        Path file = Paths.get(
-                System.getProperty("user.home"),
-                "reservation_system",
-                name);
+        Path file = Paths.get(Properties.DATA_DIRECTORY.toString(), name);
+
         try {
             String data = Files.readString(file, StandardCharsets.UTF_8);
             String[] roomAsString = data.split(System.getProperty("line.separator"));

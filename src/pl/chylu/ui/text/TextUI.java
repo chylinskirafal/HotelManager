@@ -4,8 +4,7 @@ import pl.chylu.domain.guest.Guest;
 import pl.chylu.domain.guest.GuestService;
 import pl.chylu.domain.room.Room;
 import pl.chylu.domain.room.RoomService;
-import pl.chylu.exception.OnlyNumberException;
-import pl.chylu.exception.WrongOptionException;
+import pl.chylu.exception.*;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -85,7 +84,7 @@ public class TextUI {
 
         try {
             performAction(input);
-        } catch (WrongOptionException | OnlyNumberException e) {
+        } catch (WrongOptionException | OnlyNumberException | PersistenceToFileException e) {
             System.out.println("Wystąpił niespodziewany błąd");
             System.out.println("Kod błędu: " + e.getCode());
             System.out.println("Komunikat błędu: " + e.getMessage());
@@ -107,9 +106,7 @@ public class TextUI {
                 case 2 -> readNewRoomData(input);
                 case 3 -> showAllGuests();
                 case 4 -> showAllRoom();
-                //case 5 -> findGuest();
-                //case 6 -> findRoom();
-                case 7 -> saveAllData();
+                case 5 -> saveAllData();
                 case 0 -> {
                     System.out.println("Wychodzę z aplikacji. Zapisuję dane.");
                     saveAllData();
@@ -138,9 +135,7 @@ public class TextUI {
         System.out.println("2 - Dodaj nowy pokój.");
         System.out.println("3 - Wypisz wszystkich gości.");
         System.out.println("4 - Wypisz wszystkie pokoje.");
-        System.out.println("5 - Znajdź swojego gościa");
-        System.out.println("6 - Znajdź swój pokój");
-        System.out.println("7 - Zapisz dotychczasowe postępy.");
+        System.out.println("5 - Zapisz dotychczasowe postępy.");
         System.out.println("0 - Wyjście z aplikacji");
         System.out.println("Wybierz opcję: ");
         int option;
