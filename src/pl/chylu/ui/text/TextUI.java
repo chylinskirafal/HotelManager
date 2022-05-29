@@ -70,7 +70,8 @@ public class TextUI {
     }
 
     public void showSystemInfo(String hotelName, int systemVersion, boolean isDeveloperVersion) {
-        System.out.print("Witam w systemie rezerwacji dla hotelu " + hotelName);
+        System.out.println("\n=========================\n");
+        System.out.println("Witam w systemie rezerwacji dla hotelu " + hotelName);
         System.out.println("Aktualna wersja systemu: " + systemVersion);
         System.out.println("Wersja developerska: " + isDeveloperVersion);
         System.out.println("\n=========================\n");

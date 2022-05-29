@@ -1,5 +1,6 @@
 package pl.chylu.domain.room;
 
+import pl.chylu.domain.guest.Guest;
 import pl.chylu.domain.repository.Repository;
 import pl.chylu.exception.PersistenceToFileException;
 import pl.chylu.util.Properties;
@@ -16,7 +17,13 @@ public class RoomRepository extends Repository {
     private final List<Room> rooms = new ArrayList<>();
 
     Room createNewRoom(int number, BedType[] bedTypes) {
-        Room newRoom = new Room(number, bedTypes);
+        Room newRoom = new Room(findNewId(), number, bedTypes);
+        rooms.add(newRoom);
+        return newRoom;
+    }
+
+    Room addRoomFromFile(int id, int number, BedType[] bedTypes) {
+        Room newRoom = new Room(id, number, bedTypes);
         rooms.add(newRoom);
         return newRoom;
     }
@@ -31,12 +38,12 @@ public class RoomRepository extends Repository {
         Path file = Paths.get(Properties.DATA_DIRECTORY.toString(), name);
 
         StringBuilder sb = new StringBuilder("");
-        for(Room room : this.rooms) {
+        for (Room room : this.rooms) {
             sb.append(room.toCSV());
         }
         try {
             Path reservation_system_dir = Paths.get(System.getProperty("user.home"), "reservation_system");
-            if(!Files.isDirectory(reservation_system_dir)) {
+            if (!Files.isDirectory(reservation_system_dir)) {
                 Files.createDirectory(reservation_system_dir);
             }
             Files.writeString(file, sb.toString(), StandardCharsets.UTF_8);
@@ -44,30 +51,46 @@ public class RoomRepository extends Repository {
             throw new PersistenceToFileException(file.toString(), "save", "room data");
         }
     }
+
     @Override
     protected void readAll() {
         String name = "room.csv";
         Path file = Paths.get(Properties.DATA_DIRECTORY.toString(), name);
 
+        if (!Files.exists(file)) {
+            return;
+        }
+
         try {
             String data = Files.readString(file, StandardCharsets.UTF_8);
             String[] roomAsString = data.split(System.getProperty("line.separator"));
 
-            for(String roomAsData : roomAsString) {
+            for (String roomAsData : roomAsString) {
                 String[] roomData = roomAsData.split(",");
                 int number = Integer.parseInt(roomData[0]);
-                String bedTypesData = roomData[1];
-                String[] bedsTypesAsString =  bedTypesData.split("#");
+                int id = Integer.parseInt(roomData[0]);
+                String bedTypesData = roomData[2];
+                String[] bedsTypesAsString = bedTypesData.split("#");
                 BedType[] bedTypes = new BedType[bedsTypesAsString.length];
-                for(int i=0;i<bedTypes.length;i++) {
-                    bedTypes[i]=BedType.valueOf(bedsTypesAsString[i]);
+                for (int i = 0; i < bedTypes.length; i++) {
+                    bedTypes[i] = BedType.valueOf(bedsTypesAsString[i]);
                 }
-                createNewRoom(number,bedTypes);
+                addRoomFromFile(id, number, bedTypes);
             }
 
         } catch (IOException e) {
             System.out.println("Nie udało się odczytać pliku z poprzednio zapisanymi danymi.");
             e.printStackTrace();
         }
+    }
+
+    private int findNewId() {
+        int max = 0;
+        for (Room room : this.rooms) {
+            if (room.getId() > max) {
+                max = room.getId();
+            }
+        }
+        return max + 1;
     }
 }

@@ -1,20 +1,26 @@
 package pl.chylu.domain.room;
 
 public class Room {
+    public int getId() {
+        return id;
+    }
+
+    private final int id;
     private final int number;
     private final BedType[] beds;
 
-    Room(int number, BedType[] bedTypes) {
+    Room(int id, int number, BedType[] bedTypes) {
+        this.id = id;
         this.number = number;
         this.beds = bedTypes;
     }
 
     public String getInfo() {
         StringBuilder bedInfo = new StringBuilder("Rodzaje łóżek w pokoju:\n");
-        for(BedType bed : beds) {
+        for (BedType bed : beds) {
             bedInfo.append("\t").append(bed).append("\n");
         }
-        return String.format("Pokój numer %d %s", this.number, bedInfo.toString());
+        return String.format("%d. Pokój numer %d %s", this.id, this.number, bedInfo.toString());
     }
 
     String toCSV() {
@@ -23,7 +29,8 @@ public class Room {
             bedsAsString[i] = this.beds[i].toString();
         }
         String bedTypes = String.join("#", bedsAsString);
-        return String.format("%d,%s%s",
+        return String.format("%d,%d,%s%s",
+                this.id,
                 this.number,
                 bedTypes,
                 System.getProperty("line.separator"));
