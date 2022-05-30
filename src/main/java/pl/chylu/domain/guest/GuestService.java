@@ -1,5 +1,8 @@
 package pl.chylu.domain.guest;
 
+import pl.chylu.domain.guest.dto.GuestDTO;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuestService {
@@ -39,5 +42,15 @@ public class GuestService {
 
     public Guest getGuestById(int guestId) {
         return repository.findById(guestId);
+    }
+
+    public List<GuestDTO> getAllAsDTO() {
+        List<GuestDTO> result = new ArrayList<>();
+        List<Guest> allGuest = repository.getAll();
+        for (Guest guest : allGuest) {
+            GuestDTO dto = guest.generateDTO();
+            result.add(dto);
+        }
+        return result;
     }
 }

@@ -1,5 +1,8 @@
 package pl.chylu.domain.guest;
 
+import pl.chylu.domain.guest.dto.GuestDTO;
+import pl.chylu.domain.room.dto.RoomDTO;
+
 public class Guest {
 
     private final int id;
@@ -33,4 +36,9 @@ public class Guest {
     public int getId() {
         return id;
     }
+
+    public GuestDTO generateDTO() {
+        return new GuestDTO(id, firstName, lastName, age, gender.toString());
+    }
+
 }
