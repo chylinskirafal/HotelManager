@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 
 public class Properties {
-    public static final String HOTEL_NAME = "Overlook";
+    public static final String HOTEL_NAME = "TimeToSleep";
     public static final int SYSTEM_VERSION = 1;
     public static final boolean IS_DEVELOPER_VERSION = true;
     public static final int HOTEL_NIGHT_START_HOUR = 15;

@@ -74,11 +74,11 @@ public class TextUI {
         return bedTypes;
     }
 
-    public void showSystemInfo(String hotelName, int systemVersion, boolean isDeveloperVersion) {
+    public void showSystemInfo() {
         System.out.println("\n=========================\n");
-        System.out.println("Witam w systemie rezerwacji dla hotelu " + hotelName);
-        System.out.println("Aktualna wersja systemu: " + systemVersion);
-        System.out.println("Wersja developerska: " + isDeveloperVersion);
+        System.out.println("Witam w systemie rezerwacji dla hotelu " + Properties.HOTEL_NAME);
+        System.out.println("Aktualna wersja systemu: " + Properties.SYSTEM_VERSION);
+        System.out.println("Wersja developerska: " + Properties.IS_DEVELOPER_VERSION);
         System.out.println("\n=========================\n");
     }
 
