@@ -1,7 +1,9 @@
 package pl.chylu.domain.room;
 
+import pl.chylu.domain.room.dto.RoomDTO;
 import pl.chylu.exception.WrongOptionException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomService {
@@ -61,5 +63,15 @@ public class RoomService {
 
     public Room getRoomById(int roomId) {
         return repository.getById(roomId);
+    }
+
+    public List<RoomDTO> getAllAsDTO() {
+        List<RoomDTO> result = new ArrayList<>();
+        List<Room> allRooms = repository.getAll();
+        for (Room room : allRooms) {
+            RoomDTO dto = room.generateDTO();
+            result.add(dto);
+        }
+        return result;
     }
 }

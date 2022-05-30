@@ -1,8 +1,11 @@
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\room\Room.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\App.java
+C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\room\dto\RoomDTO.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\exception\OnlyNumberException.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\util\Properties.java
+C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\ui\gui\RoomsTab.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\reservation\ReservationService.java
+C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\ui\gui\PrimaryStage.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\guest\Guest.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\reservation\Reservation.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\reservation\ReservationRepository.java
@@ -17,3 +20,4 @@ C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\repos
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\exception\WrongOptionException.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\guest\Gender.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\exception\ReservationCustomException.java
+C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\ui\gui\MainTabView.java

@@ -7,13 +7,17 @@ pl\chylu\domain\room\BedType.class
 pl\chylu\domain\room\RoomRepository.class
 pl\chylu\domain\repository\Repository.class
 pl\chylu\domain\reservation\ReservationService.class
+pl\chylu\domain\room\dto\RoomDTO.class
+pl\chylu\ui\gui\PrimaryStage.class
 pl\chylu\domain\guest\GuestRepository.class
 pl\chylu\domain\room\RoomService.class
 pl\chylu\domain\guest\Guest.class
 pl\chylu\exception\PersistenceToFileException.class
 pl\chylu\exception\OnlyNumberException.class
+pl\chylu\ui\gui\RoomsTab.class
 pl\chylu\domain\guest\GuestService.class
 pl\chylu\domain\room\Room.class
+pl\chylu\ui\gui\MainTabView.class
 pl\chylu\ui\text\TextUI.class
 pl\chylu\util\Properties.class
 pl\chylu\exception\WrongOptionException.class

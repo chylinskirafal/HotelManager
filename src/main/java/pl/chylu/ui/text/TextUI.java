@@ -84,10 +84,6 @@ public class TextUI {
 
     public void showMainMenu() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Trwa ładowanie danych...");
-        this.guestService.readAll();
-        this.roomService.readAll();
-        this.reservationService.readAll();
 
         try {
             performAction(input);
