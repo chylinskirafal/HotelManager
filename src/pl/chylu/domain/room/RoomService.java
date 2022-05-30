@@ -5,7 +5,7 @@ import pl.chylu.exception.WrongOptionException;
 import java.util.List;
 
 public class RoomService {
-    private final RoomRepository repository = new RoomRepository();
+    private static final RoomRepository repository = new RoomRepository();
     public Room createNewRoom(int number, int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];
         for(int i=0;i<bedTypesOptions.length;i=i+1) {
@@ -25,19 +25,19 @@ public class RoomService {
     }
 
     public List<Room> getAllRooms() {
-        return this.repository.getAll();
+        return repository.getAll();
     }
 
     public void saveAll() {
-        this.repository.saveAll();
+        repository.saveAll();
     }
 
     public void readAll() {
-        this.repository.readAll();
+        repository.readAll();
     }
 
     public void removeRoom(int id) {
-        this.repository.remove(id);
+        repository.remove(id);
     }
 
     public void editRoom(int id, int number, int[] bedTypesInput) {
@@ -57,5 +57,9 @@ public class RoomService {
         }
 
         repository.edit(id, number, bedTypes);
+    }
+
+    public Room getRoomById(int roomId) {
+        return repository.getById(roomId);
     }
 }

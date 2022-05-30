@@ -41,10 +41,6 @@ public class RoomRepository extends Repository {
             sb.append(room.toCSV());
         }
         try {
-            Path reservation_system_dir = Paths.get(System.getProperty("user.home"), "reservation_system");
-            if (!Files.isDirectory(reservation_system_dir)) {
-                Files.createDirectory(reservation_system_dir);
-            }
             Files.writeString(file, sb.toString(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new PersistenceToFileException(file.toString(), "save", "room data");
@@ -110,5 +106,14 @@ public class RoomRepository extends Repository {
     public void edit(int id, int number, BedType[] bedTypes) {
         remove(id);
         addRoomExist(id, number, bedTypes);
+    }
+
+    public Room getById(int id) {
+        for (Room room : this.rooms) {
+            if ((room.getId()==id)) {
+                return room;
+            }
+        }
+        return null;
     }
 }

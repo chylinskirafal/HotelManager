@@ -41,10 +41,6 @@ public class GuestRepository extends Repository {
             sb.append(guest.toCSV());
         }
         try {
-            Path reservation_system_dir = Paths.get(System.getProperty("user.home"), "reservation_system");
-            if (!Files.isDirectory(reservation_system_dir)) {
-                Files.createDirectory(reservation_system_dir);
-            }
             Files.writeString(file, sb.toString(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new PersistenceToFileException(file.toString(), "write", "guests data");
@@ -90,8 +86,8 @@ public class GuestRepository extends Repository {
 
     public void remove(int id) {
         int guestToBeRemovedIndex = -1;
-        for(int i = 0; i <this.guests.size(); i++) {
-            if(this.guests.get(i).getId() == id) {
+        for (int i = 0; i < this.guests.size(); i++) {
+            if (this.guests.get(i).getId() == id) {
                 guestToBeRemovedIndex = i;
                 break;
             }
@@ -105,5 +101,14 @@ public class GuestRepository extends Repository {
     public void edit(int id, String firstName, String lastName, int age, Gender gender) {
         remove(id);
         addExitsGuest(id, firstName, lastName, age, gender);
+    }
+
+    public Guest findById(int id) {
+        for (Guest guest : guests) {
+            if (guest.getId() == id) {
+                return guest;
+            }
+        }
+        return null;
     }
 }

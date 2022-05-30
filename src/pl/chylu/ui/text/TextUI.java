@@ -2,10 +2,14 @@ package pl.chylu.ui.text;
 
 import pl.chylu.domain.guest.Guest;
 import pl.chylu.domain.guest.GuestService;
+import pl.chylu.domain.reservation.Reservation;
+import pl.chylu.domain.reservation.ReservationService;
 import pl.chylu.domain.room.Room;
 import pl.chylu.domain.room.RoomService;
 import pl.chylu.exception.*;
+import pl.chylu.util.Properties;
 
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +17,7 @@ import java.util.Scanner;
 public class TextUI {
     private final GuestService guestService = new GuestService();
     private final RoomService roomService = new RoomService();
+    private final ReservationService reservationService = new ReservationService();
 
     private void readNewGuestData(Scanner input) {
         System.out.println("Tworzymy nowego gościa.");
@@ -82,6 +87,7 @@ public class TextUI {
         System.out.println("Trwa ładowanie danych...");
         this.guestService.readAll();
         this.roomService.readAll();
+        this.reservationService.readAll();
 
         try {
             performAction(input);
@@ -109,7 +115,7 @@ public class TextUI {
                 case 4 -> showAllRoom();
                 case 5 -> editGuest(input);
                 case 6 -> editRoom(input);
-                case 7 -> saveAllData();
+                case 7 -> createReservation(input);
                 case 8 -> removeGuest(input);
                 case 9 -> removeRoom(input);
                 case 0 -> {
@@ -118,6 +124,29 @@ public class TextUI {
                 }
                 case default -> throw new WrongOptionException("Wrong option in main menu");
             }
+        }
+    }
+
+    private void createReservation(Scanner input) {
+        System.out.println("Od kiedy?: (DD.MM.YYYY)");
+        String fromAsString = input.next();
+        LocalDate from = LocalDate.parse(fromAsString, Properties.DATE_FORMATTER);
+
+        System.out.println("Do kiedy?: (DD.MM.YYYY)");
+        String toAsString = input.next();
+        LocalDate to = LocalDate.parse(fromAsString, Properties.DATE_FORMATTER);
+
+        showAllRoom();
+        System.out.println("ID Pokoju:");
+        int roomId = input.nextInt();
+        showAllGuests();
+        System.out.println("ID Gościa:");
+        int guestId = input.nextInt();
+
+        //TODO Handle null reservation
+        Reservation res = reservationService.createNewReservation(from, to, roomId, guestId);
+        if(res!=null) {
+            System.out.println("Udało się stworzyć rezerwację!");
         }
     }
 
@@ -209,7 +238,7 @@ public class TextUI {
         System.out.println("4 - Wypisz wszystkie pokoje.");
         System.out.println("5 - Edytuj dane gościa.");
         System.out.println("6 - Edytuj dane pokoju.");
-        System.out.println("7 - Zapisz dotychczasowe postępy.");
+        System.out.println("7 - Zarezerwuj pokój dla Gościa.");
         System.out.println("8 - Wymelduj gościa.");
         System.out.println("9 - Zniszcz pokój.");
         System.out.println("0 - Wyjście z aplikacji");
@@ -226,5 +255,6 @@ public class TextUI {
     private void saveAllData() {
         this.guestService.saveAll();
         this.roomService.saveAll();
+        this.reservationService.saveAll();
     }
 }
