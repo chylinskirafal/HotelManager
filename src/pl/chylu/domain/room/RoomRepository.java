@@ -1,6 +1,5 @@
 package pl.chylu.domain.room;
 
-import pl.chylu.domain.guest.Guest;
 import pl.chylu.domain.repository.Repository;
 import pl.chylu.exception.PersistenceToFileException;
 import pl.chylu.util.Properties;
@@ -22,7 +21,7 @@ public class RoomRepository extends Repository {
         return newRoom;
     }
 
-    Room addRoomFromFile(int id, int number, BedType[] bedTypes) {
+    Room addRoomExist(int id, int number, BedType[] bedTypes) {
         Room newRoom = new Room(id, number, bedTypes);
         rooms.add(newRoom);
         return newRoom;
@@ -75,7 +74,7 @@ public class RoomRepository extends Repository {
                 for (int i = 0; i < bedTypes.length; i++) {
                     bedTypes[i] = BedType.valueOf(bedsTypesAsString[i]);
                 }
-                addRoomFromFile(id, number, bedTypes);
+                addRoomExist(id, number, bedTypes);
             }
 
         } catch (IOException e) {
@@ -92,5 +91,24 @@ public class RoomRepository extends Repository {
             }
         }
         return max + 1;
+    }
+
+    public void remove(int id) {
+        int roomToBeRemovedIndex = -1;
+        for(int i = 0; i <this.rooms.size(); i++) {
+            if(this.rooms.get(i).getId() == id) {
+                roomToBeRemovedIndex = i;
+                break;
+            }
+        }
+
+        if (roomToBeRemovedIndex > -1) {
+            this.rooms.remove(roomToBeRemovedIndex);
+        }
+    }
+
+    public void edit(int id, int number, BedType[] bedTypes) {
+        remove(id);
+        addRoomExist(id, number, bedTypes);
     }
 }

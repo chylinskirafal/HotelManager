@@ -21,7 +21,7 @@ public class GuestRepository extends Repository {
         return newGuest;
     }
 
-    Guest addGuestFromFile(int id, String firstName, String lastName, int age, Gender gender) {
+    Guest addExitsGuest(int id, String firstName, String lastName, int age, Gender gender) {
         Guest newGuest = new Guest(id, firstName, lastName, age, gender);
         guests.add(newGuest);
         return newGuest;
@@ -70,7 +70,7 @@ public class GuestRepository extends Repository {
                 int id = Integer.parseInt(guestData[0]);
                 int ageData = Integer.parseInt(guestData[3]);
                 Gender genderData = Gender.valueOf(guestData[4]);
-                addGuestFromFile(id, guestData[1], guestData[2], ageData, genderData);
+                addExitsGuest(id, guestData[1], guestData[2], ageData, genderData);
             }
         } catch (IOException e) {
             System.out.println("Nie udało się odczytać pliku z poprzednio zapisanymi danymi.");
@@ -86,5 +86,24 @@ public class GuestRepository extends Repository {
             }
         }
         return max + 1;
+    }
+
+    public void remove(int id) {
+        int guestToBeRemovedIndex = -1;
+        for(int i = 0; i <this.guests.size(); i++) {
+            if(this.guests.get(i).getId() == id) {
+                guestToBeRemovedIndex = i;
+                break;
+            }
+        }
+
+        if (guestToBeRemovedIndex > -1) {
+            this.guests.remove(guestToBeRemovedIndex);
+        }
+    }
+
+    public void edit(int id, String firstName, String lastName, int age, Gender gender) {
+        remove(id);
+        addExitsGuest(id, firstName, lastName, age, gender);
     }
 }
