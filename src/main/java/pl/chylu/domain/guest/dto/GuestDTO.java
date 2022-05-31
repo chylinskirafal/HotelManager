@@ -4,9 +4,7 @@ import pl.chylu.domain.guest.Gender;
 
 public class GuestDTO {
     private final int id;
-
     private final String firstName;
-
     private final String lastName;
     private final int age;
     private final String gender;

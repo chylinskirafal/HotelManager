@@ -6,6 +6,15 @@ import pl.chylu.domain.room.dto.RoomDTO;
 public class Guest {
 
     private final int id;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     private final String firstName;
     private final String lastName;
     private final int age;

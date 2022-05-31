@@ -80,4 +80,8 @@ public class ReservationRepository {
             throw new PersistenceToFileException(file.toString(), "write", "reservation data");
         }
     }
+
+    public List<Reservation> getAll() {
+        return reservations;
+    }
 }

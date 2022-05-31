@@ -8,9 +8,10 @@ public class Room {
     }
 
     private final int id;
-    private final int number;
-    private final BedType[] beds;
 
+    private final int number;
+
+    private final BedType[] beds;
     Room(int id, int number, BedType[] bedTypes) {
         this.id = id;
         this.number = number;
@@ -47,5 +48,9 @@ public class Room {
         String[] bedsAsString = getBedsAsStrings();
         String bedTypes = String.join(",", bedsAsString);
         return new RoomDTO(this.id, this.number, bedTypes);
+    }
+
+    public int getNumber() {
+        return number;
     }
 }

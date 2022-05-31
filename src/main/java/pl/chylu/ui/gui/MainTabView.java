@@ -11,12 +11,11 @@ public class MainTabView {
     public MainTabView() {
         this.mainTabs = new TabPane();
 
-        Tab reservationTab = new Tab("Rezerwacje", new Label("Obsługa rezerwacji"));
-
+        ReservationTab reservationTab = new ReservationTab();
         RoomsTab roomsTab = new RoomsTab();
         GuestTab guestTab = new GuestTab();
 
-        this.mainTabs.getTabs().addAll(reservationTab, guestTab.getGuestTab(), roomsTab.getRoomTab());
+        this.mainTabs.getTabs().addAll(reservationTab.getReservationTab(), guestTab.getGuestTab(), roomsTab.getRoomTab());
     }
 
     protected TabPane getMainTabs() {
