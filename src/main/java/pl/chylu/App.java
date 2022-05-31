@@ -2,6 +2,7 @@ package pl.chylu;
 
 
 import pl.chylu.domain.guest.GuestService;
+import pl.chylu.domain.reservation.Reservation;
 import pl.chylu.domain.reservation.ReservationService;
 import pl.chylu.domain.room.RoomService;
 
@@ -19,7 +20,6 @@ public class App extends Application {
     private static final ReservationService reservationService = new ReservationService();
 
     public static void main(String[] args) {
-
         try {
             Properties.createDataDirectory();
             System.out.println("Trwa ładowanie danych...");

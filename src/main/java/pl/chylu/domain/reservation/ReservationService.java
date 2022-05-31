@@ -42,7 +42,7 @@ public class ReservationService {
         List<ReservationDTO> result = new ArrayList<>();
         List<Reservation> allReservation = repository.getAll();
         for (Reservation reservation : allReservation) {
-            ReservationDTO dto = reservation.generateDTO();
+            ReservationDTO dto = reservation.getAsDTO();
             result.add(dto);
         }
         return result;
