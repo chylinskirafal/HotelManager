@@ -35,9 +35,8 @@ public class Reservation {
         return this.id;
     }
 
-    public ReservationDTO getAsDTO() {
-        return new ReservationDTO(id,from, to, guest.getId(),
-                guest.getFirstName(), guest.getLastName(),
-                room.getId(), room.getNumber());
+    public ReservationDTO generateDTO() {
+        return new ReservationDTO(id, from, to, guest.getFirstName(),
+                guest.getLastName(), room.getNumber());
     }
 }
