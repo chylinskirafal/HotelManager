@@ -1,7 +1,5 @@
 package pl.chylu.ui.gui;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,6 +16,7 @@ import pl.chylu.util.Properties;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AddNewRoomScene {
     private final Scene mainScene;
@@ -33,13 +32,9 @@ public class AddNewRoomScene {
         TextField roomNumberField = new TextField();
 
         //Only Numbers in TextField Room Number
-        roomNumberField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    roomNumberField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        roomNumberField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                roomNumberField.setText(newValue.replaceAll("\\D", ""));
             }
         });
 
@@ -49,7 +44,7 @@ public class AddNewRoomScene {
         Label bedTypeLabel = new Label("Typy łóżek:");
         Button addNewBedBox = new Button();
 
-        Image icon = new Image(getClass().getClassLoader().getResourceAsStream("plus.png"));
+        Image icon = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("plus.png")));
         ImageView imageView = new ImageView(icon);
         imageView.setFitHeight(16);
         imageView.setFitWidth(16);
@@ -61,18 +56,15 @@ public class AddNewRoomScene {
         gridPane.add(addNewBedBox, 1, 1);
         VBox bedsVerticalLayout = new VBox(getComboBox());
 
-        addNewBedBox.setOnAction(actionEvent -> {
-            bedsVerticalLayout.getChildren().add(getComboBox());
-        });
+        addNewBedBox.setOnAction(actionEvent -> bedsVerticalLayout.getChildren().add(getComboBox()));
 
         Button addRoom = new Button("Dodaj pokój do bazy");
         addRoom.setOnAction(actionEvent -> {
             int newRoomNumber = Integer.parseInt(roomNumberField.getText());
             List<String> bedTypes = new ArrayList<>();
 
-            this.comboBoxes.forEach(comboBox -> {
-                bedTypes.add(comboBox.getValue());
-            });
+            this.comboBoxes.forEach(comboBox -> bedTypes.add(comboBox.getValue()));
+
             this.roomService.createNewRoom(newRoomNumber, bedTypes);
             tableView.getItems().clear();
             List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
@@ -84,8 +76,8 @@ public class AddNewRoomScene {
         gridPane.add(addRoom, 0, 3);
 
         this.mainScene = new Scene(gridPane, 640, 480);
-        this.mainScene.getStylesheets().add(getClass().getClassLoader()
-                .getResource("hotelMenager.css").toExternalForm());
+        this.mainScene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader()
+                .getResource("hotelMenager.css")).toExternalForm());
     }
 
     private ComboBox<String> getComboBox() {
