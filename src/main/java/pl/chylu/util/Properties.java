@@ -16,6 +16,10 @@ public class Properties {
     public static final int HOTEL_NIGHT_END_HOUR = 11;
     public static final int HOTEL_NIGHT_END_MINUTE = 0;
     public static  final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    public static final String SINGLE_BED = "Pojedyńcze";
+    public static final String DOUBLE_BED = "Podwójne";
+    public static final String KING_SIZE = "Małżeńskie";
     public static final Path DATA_DIRECTORY = Paths.get(
             System.getProperty("user.home"),
             "reservation_system");

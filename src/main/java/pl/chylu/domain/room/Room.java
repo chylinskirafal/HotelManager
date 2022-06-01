@@ -23,7 +23,7 @@ public class Room {
         for (BedType bed : beds) {
             bedInfo.append("\t").append(bed).append("\n");
         }
-        return String.format("%d. Pokój numer %d %s", this.id, this.number, bedInfo.toString());
+        return String.format("%d. Pokój numer %d %s", this.id, this.number, bedInfo);
     }
 
     String toCSV() {

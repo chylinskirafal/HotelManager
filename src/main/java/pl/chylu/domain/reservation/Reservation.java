@@ -22,7 +22,7 @@ public class Reservation {
     }
 
     String toCSV() {
-        return String.format("%s,%s,%s,%s,%s",
+        return String.format("%s,%s,%s,%s,%s%s",
                 this.id,
                 this.room.getId(),
                 this.guest.getId(),
@@ -36,7 +36,6 @@ public class Reservation {
     }
 
     public ReservationDTO generateDTO() {
-        System.out.println("Generuję DTO");
         return new ReservationDTO(id, from, to, guest.getFirstName(),
                 guest.getLastName(), room.getNumber());
     }

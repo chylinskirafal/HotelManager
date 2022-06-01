@@ -18,7 +18,6 @@ public class ReservationDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.numberRoom = numberRoom;
-        System.out.println("Rezerwacja zaczytana. Nr:" + countDTO);
     }
 
     public int getId() {

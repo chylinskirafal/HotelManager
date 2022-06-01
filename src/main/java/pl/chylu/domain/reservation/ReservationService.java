@@ -25,7 +25,6 @@ public class ReservationService {
     }
 
     private ReservationService() {
-
     }
     public Reservation createNewReservation(LocalDate from, LocalDate to, int roomId, int guestId) {
 
@@ -54,7 +53,6 @@ public class ReservationService {
         for (Reservation reservation : allReservation) {
             ReservationDTO dto = reservation.generateDTO();
             result.add(dto);
-            System.out.println(reservation.getId());
         }
         return result;
     }

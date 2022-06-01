@@ -3,6 +3,7 @@ package pl.chylu.domain.room;
 import pl.chylu.domain.ObjectPool;
 import pl.chylu.domain.room.dto.RoomDTO;
 import pl.chylu.exception.WrongOptionException;
+import pl.chylu.util.Properties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,23 @@ public class RoomService {
 
     private RoomService() {
 
+    }
+    public Room createNewRoom(int roomNumber, List<String> bedTypesAsString) {
+        BedType[] bedTypes = new BedType[bedTypesAsString.size()];
+        for(int i=0;i<bedTypesAsString.size();i=i+1) {
+            BedType bedType;
+            if (bedTypesAsString.get(i).equals(Properties.SINGLE_BED)) {
+                bedType = BedType.SINGLE;
+            } else if (bedTypesAsString.get(i).equals(Properties.DOUBLE_BED)) {
+                bedType = BedType.DOUBLE;
+            } else if (bedTypesAsString.get(i).equals(Properties.KING_SIZE)) {
+                bedType = BedType.KING_SIZE;
+            } else {
+                throw new WrongOptionException("Wrong option when selecting bed type");
+            }
+            bedTypes[i] = bedType;
+        }
+        return repository.createNewRoom(roomNumber,bedTypes);
     }
     public Room createNewRoom(int number, int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];

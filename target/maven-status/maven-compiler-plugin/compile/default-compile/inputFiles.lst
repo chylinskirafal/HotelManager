@@ -3,6 +3,7 @@ C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\reser
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\ui\gui\PrimaryStage.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\reservation\ReservationRepository.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\guest\GuestRepository.java
+C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\ui\gui\AddNewRoomScene.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\exception\PersistenceToFileException.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\domain\room\RoomService.java
 C:\Users\stalo\Documents\GitHub\HotelMenager\src\main\java\pl\chylu\exception\ReservationCustomException.java

@@ -4,6 +4,7 @@ pl\chylu\domain\reservation\ReservationService.class
 pl\chylu\domain\guest\GuestRepository.class
 pl\chylu\domain\room\RoomService.class
 pl\chylu\domain\guest\Guest.class
+pl\chylu\ui\gui\AddNewRoomScene.class
 pl\chylu\ui\gui\GuestTab.class
 pl\chylu\util\Properties.class
 pl\chylu\domain\ObjectPool.class
@@ -14,6 +15,7 @@ pl\chylu\domain\guest\Gender.class
 pl\chylu\domain\room\BedType.class
 pl\chylu\ui\gui\ReservationTab.class
 pl\chylu\domain\room\dto\RoomDTO.class
+pl\chylu\ui\gui\AddNewRoomScene$1.class
 pl\chylu\domain\reservation\dto\ReservationDTO.class
 pl\chylu\ui\gui\PrimaryStage.class
 pl\chylu\exception\PersistenceToFileException.class
