@@ -1,5 +1,6 @@
 package pl.chylu.domain.reservation;
 
+import pl.chylu.domain.ObjectPool;
 import pl.chylu.domain.guest.Guest;
 import pl.chylu.domain.guest.GuestService;
 import pl.chylu.domain.reservation.dto.ReservationDTO;
@@ -14,9 +15,9 @@ import java.util.List;
 
 public class ReservationService {
 
-    private final RoomService roomService = RoomService.getInstance();
-    private final GuestService guestService = GuestService.getInstance();
-    private final ReservationRepository repository = ReservationRepository.getInstance();
+    private final RoomService roomService = ObjectPool.getRoomService();
+    private final GuestService guestService = ObjectPool.getGuestService();
+    private final ReservationRepository repository = ObjectPool.getReservationRepository();
     private final static ReservationService instance = new ReservationService();
 
     public static ReservationService getInstance() {

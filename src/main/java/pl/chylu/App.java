@@ -1,6 +1,7 @@
 package pl.chylu;
 
 
+import pl.chylu.domain.ObjectPool;
 import pl.chylu.domain.guest.GuestService;
 import pl.chylu.domain.reservation.ReservationService;
 import pl.chylu.domain.room.RoomService;
@@ -14,9 +15,9 @@ import pl.chylu.util.Properties;
 import java.io.IOException;
 
 public class App extends Application {
-    private static final GuestService guestService = GuestService.getInstance();
-    private static final RoomService roomService = RoomService.getInstance();
-    private static final ReservationService reservationService = ReservationService.getInstance();
+    private static final GuestService guestService = ObjectPool.getGuestService();
+    private static final RoomService roomService = ObjectPool.getRoomService();
+    private static final ReservationService reservationService = ObjectPool.getReservationService();
 
     public static void main(String[] args) {
 

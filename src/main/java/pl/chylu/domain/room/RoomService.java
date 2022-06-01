@@ -1,5 +1,6 @@
 package pl.chylu.domain.room;
 
+import pl.chylu.domain.ObjectPool;
 import pl.chylu.domain.room.dto.RoomDTO;
 import pl.chylu.exception.WrongOptionException;
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomService {
-    private static final RoomRepository repository = RoomRepository.getInstance();
+    private static final RoomRepository repository = ObjectPool.getRoomRepository();
 
     private static RoomService instance = new RoomService();
 

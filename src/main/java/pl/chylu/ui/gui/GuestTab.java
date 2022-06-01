@@ -4,6 +4,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import pl.chylu.domain.ObjectPool;
 import pl.chylu.domain.guest.GuestService;
 import pl.chylu.domain.guest.dto.GuestDTO;
 import pl.chylu.domain.reservation.ReservationService;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class GuestTab {
     private Tab guestTab;
-    private GuestService guestService = GuestService.getInstance();
+    private GuestService guestService = ObjectPool.getGuestService();
 
     public GuestTab() {
         TableView<GuestDTO> tableView = new TableView<>();

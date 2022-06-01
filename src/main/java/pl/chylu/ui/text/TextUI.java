@@ -1,5 +1,6 @@
 package pl.chylu.ui.text;
 
+import pl.chylu.domain.ObjectPool;
 import pl.chylu.domain.guest.Guest;
 import pl.chylu.domain.guest.GuestService;
 import pl.chylu.domain.reservation.Reservation;
@@ -15,9 +16,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TextUI {
-    private final GuestService guestService = GuestService.getInstance();
-    private final RoomService roomService = RoomService.getInstance();
-    private final ReservationService reservationService = ReservationService.getInstance();
+    private final GuestService guestService = ObjectPool.getGuestService();
+    private final RoomService roomService = ObjectPool.getRoomService();
+    private final ReservationService reservationService = ObjectPool.getReservationService();
 
     private void readNewGuestData(Scanner input) {
         System.out.println("Tworzymy nowego gościa.");

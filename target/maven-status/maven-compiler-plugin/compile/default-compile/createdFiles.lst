@@ -1,12 +1,12 @@
 pl\chylu\domain\reservation\ReservationRepository.class
 pl\chylu\domain\room\RoomRepository.class
-pl\chylu\domain\repository\Repository.class
 pl\chylu\domain\reservation\ReservationService.class
 pl\chylu\domain\guest\GuestRepository.class
 pl\chylu\domain\room\RoomService.class
 pl\chylu\domain\guest\Guest.class
 pl\chylu\ui\gui\GuestTab.class
 pl\chylu\util\Properties.class
+pl\chylu\domain\ObjectPool.class
 pl\chylu\domain\reservation\Reservation.class
 pl\chylu\exception\ReservationCustomException.class
 pl\chylu\App.class

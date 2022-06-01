@@ -1,6 +1,5 @@
 package pl.chylu.domain.guest;
 
-import pl.chylu.domain.repository.Repository;
 import pl.chylu.exception.PersistenceToFileException;
 import pl.chylu.util.Properties;
 
@@ -12,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuestRepository extends Repository {
+public class GuestRepository {
     List<Guest> guests = new ArrayList<>();
     private static final GuestRepository instance = new GuestRepository();
 
@@ -39,7 +38,7 @@ public class GuestRepository extends Repository {
         return this.guests;
     }
 
-    @Override
+
     protected void saveAll() {
         String name = "guests.csv";
         Path file = Paths.get(Properties.DATA_DIRECTORY.toString(), name);
@@ -55,7 +54,6 @@ public class GuestRepository extends Repository {
         }
     }
 
-    @Override
     protected void readAll() {
         String name = "guests.csv";
 

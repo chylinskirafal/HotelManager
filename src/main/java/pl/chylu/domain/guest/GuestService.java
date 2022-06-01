@@ -1,5 +1,6 @@
 package pl.chylu.domain.guest;
 
+import pl.chylu.domain.ObjectPool;
 import pl.chylu.domain.guest.dto.GuestDTO;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.List;
 
 public class GuestService {
 
-    private static final GuestRepository repository = GuestRepository.getInstance();
+    private static final GuestRepository repository = ObjectPool.getGuestRepository();
     private static final GuestService instance = new GuestService();
 
     public static GuestService getInstance() {

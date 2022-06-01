@@ -5,6 +5,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import pl.chylu.domain.ObjectPool;
 import pl.chylu.domain.room.RoomService;
 import pl.chylu.domain.room.dto.RoomDTO;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class RoomsTab {
     private Tab roomTab;
-    private RoomService roomService = RoomService.getInstance();
+    private RoomService roomService = ObjectPool.getRoomService();
 
     public RoomsTab() {
         TableView<RoomDTO> tableView = new TableView<>();
