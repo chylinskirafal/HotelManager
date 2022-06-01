@@ -7,7 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomService {
-    private static final RoomRepository repository = new RoomRepository();
+    private static final RoomRepository repository = RoomRepository.getInstance();
+
+    private static RoomService instance = new RoomService();
+
+    public static RoomService getInstance() {
+        return instance;
+    }
+
+    private RoomService() {
+
+    }
     public Room createNewRoom(int number, int[] bedTypesOptions) {
         BedType[] bedTypes = new BedType[bedTypesOptions.length];
         for(int i=0;i<bedTypesOptions.length;i=i+1) {

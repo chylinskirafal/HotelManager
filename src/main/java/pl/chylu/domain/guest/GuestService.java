@@ -7,7 +7,15 @@ import java.util.List;
 
 public class GuestService {
 
-    private static final GuestRepository repository = new GuestRepository();
+    private static final GuestRepository repository = GuestRepository.getInstance();
+    private static final GuestService instance = new GuestService();
+
+    public static GuestService getInstance() {
+        return instance;
+    }
+    private GuestService() {
+
+    }
 
     public Guest createNewGuest(String firstName, String lastName, int age, boolean isMale) {
         Gender gender = Gender.FEMALE;

@@ -6,12 +6,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.chylu.domain.guest.GuestService;
 import pl.chylu.domain.guest.dto.GuestDTO;
+import pl.chylu.domain.reservation.ReservationService;
 
 import java.util.List;
 
 public class GuestTab {
     private Tab guestTab;
-    private GuestService guestService = new GuestService();
+    private GuestService guestService = GuestService.getInstance();
 
     public GuestTab() {
         TableView<GuestDTO> tableView = new TableView<>();

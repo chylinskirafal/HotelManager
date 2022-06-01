@@ -36,6 +36,7 @@ public class Reservation {
     }
 
     public ReservationDTO generateDTO() {
+        System.out.println("Generuję DTO");
         return new ReservationDTO(id, from, to, guest.getFirstName(),
                 guest.getLastName(), room.getNumber());
     }

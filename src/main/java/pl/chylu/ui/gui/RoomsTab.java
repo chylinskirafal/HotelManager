@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RoomsTab {
     private Tab roomTab;
-    private RoomService roomService = new RoomService();
+    private RoomService roomService = RoomService.getInstance();
 
     public RoomsTab() {
         TableView<RoomDTO> tableView = new TableView<>();
@@ -23,7 +23,13 @@ public class RoomsTab {
         TableColumn<RoomDTO, String> bedsColumn = new TableColumn<>("Typy łóżek");
         bedsColumn.setCellValueFactory(new PropertyValueFactory<>("beds"));
 
-        tableView.getColumns().addAll(numberColumn, bedsColumn);
+        TableColumn<RoomDTO, Integer> bedsCountColumn = new TableColumn<>("Ilość łóżek");
+        bedsCountColumn.setCellValueFactory(new PropertyValueFactory<>("bedsCount"));
+
+        TableColumn<RoomDTO, Integer> roomSizeColumn = new TableColumn<>("Rozmiar Pokoju");
+        roomSizeColumn.setCellValueFactory(new PropertyValueFactory<>("roomSize"));
+
+        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsColumn);
 
         List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
 

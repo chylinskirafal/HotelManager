@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ReservationTab {
     private Tab reservationTab;
-    private ReservationService reservationService = new ReservationService();
+    private ReservationService reservationService = ReservationService.getInstance();
     public ReservationTab() {
         TableView<ReservationDTO> tableView = new TableView<>();
 

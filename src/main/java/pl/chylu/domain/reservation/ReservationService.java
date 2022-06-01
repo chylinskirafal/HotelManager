@@ -14,9 +14,18 @@ import java.util.List;
 
 public class ReservationService {
 
-    private final RoomService roomService = new RoomService();
-    private final GuestService guestService = new GuestService();
-    private final ReservationRepository repository = new ReservationRepository();
+    private final RoomService roomService = RoomService.getInstance();
+    private final GuestService guestService = GuestService.getInstance();
+    private final ReservationRepository repository = ReservationRepository.getInstance();
+    private final static ReservationService instance = new ReservationService();
+
+    public static ReservationService getInstance() {
+        return instance;
+    }
+
+    private ReservationService() {
+
+    }
     public Reservation createNewReservation(LocalDate from, LocalDate to, int roomId, int guestId) {
 
         //TODO: handle null room
@@ -44,6 +53,7 @@ public class ReservationService {
         for (Reservation reservation : allReservation) {
             ReservationDTO dto = reservation.generateDTO();
             result.add(dto);
+            System.out.println(reservation.getId());
         }
         return result;
     }

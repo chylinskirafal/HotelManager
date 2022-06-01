@@ -14,9 +14,9 @@ import pl.chylu.util.Properties;
 import java.io.IOException;
 
 public class App extends Application {
-    private static final GuestService guestService = new GuestService();
-    private static final RoomService roomService = new RoomService();
-    private static final ReservationService reservationService = new ReservationService();
+    private static final GuestService guestService = GuestService.getInstance();
+    private static final RoomService roomService = RoomService.getInstance();
+    private static final ReservationService reservationService = ReservationService.getInstance();
 
     public static void main(String[] args) {
 

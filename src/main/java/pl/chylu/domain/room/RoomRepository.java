@@ -14,6 +14,14 @@ import java.util.List;
 
 public class RoomRepository extends Repository {
     private final List<Room> rooms = new ArrayList<>();
+    private final static RoomRepository instance = new RoomRepository();
+
+    public static RoomRepository getInstance() {
+        return instance;
+    }
+    private RoomRepository() {
+
+    }
 
     Room createNewRoom(int number, BedType[] bedTypes) {
         Room newRoom = new Room(findNewId(), number, bedTypes);

@@ -17,9 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReservationRepository {
-    List<Reservation> reservations = new ArrayList<>();
-    RoomService roomService = new RoomService();
-    GuestService guestService = new GuestService();
+    private static List<Reservation> reservations = new ArrayList<>();
+    RoomService roomService = RoomService.getInstance();
+    GuestService guestService = GuestService.getInstance();
+
+    private static final ReservationRepository instance = new ReservationRepository();
+
+    public static ReservationRepository getInstance() {
+        return instance;
+    }
+
+    private ReservationRepository() {
+
+    }
 
     public Reservation createNewReservation(Room room, Guest guest, LocalDateTime from, LocalDateTime to) {
         Reservation res = new Reservation(findNewId(), room, guest, from, to);
@@ -29,7 +39,7 @@ public class ReservationRepository {
 
     private int findNewId() {
         int max = 0;
-        for (Reservation reservation : this.reservations) {
+        for (Reservation reservation : reservations) {
             if (reservation.getId() > max) {
                 max = reservation.getId();
             }
@@ -40,7 +50,6 @@ public class ReservationRepository {
     public void readAll() {
         String name = "reservation.csv";
         Path file = Paths.get(Properties.DATA_DIRECTORY.toString(), name);
-
         if (!Files.exists(file)) {
             return;
         }
@@ -53,25 +62,28 @@ public class ReservationRepository {
                 int reservationId = Integer.parseInt(reservationData[0]);
                 int roomId = Integer.parseInt(reservationData[1]);
                 int guestId = Integer.parseInt(reservationData[2]);
+                String fromAsString = reservationData[3];
+                String toAsString = reservationData[4];
                 //TODO handle null guest/room
-                addExitsReservation(reservationId, roomService.getRoomById(roomId), guestService.getGuestById(guestId), LocalDateTime.parse(reservationData[3]), LocalDateTime.parse(reservationData[4]));
+                addExitsReservation(reservationId, roomService.getRoomById(roomId),
+                        guestService.getGuestById(guestId), LocalDateTime.parse(fromAsString),
+                        LocalDateTime.parse(toAsString));
             }
         } catch (IOException e) {
-            System.out.println("Nie udało się odczytać pliku z poprzednio zapisanymi danymi.");
-            e.printStackTrace();
+            throw new PersistenceToFileException(file.toString(), "read", "guests data");
         }
     }
 
     private void addExitsReservation(int id, Room room, Guest guest, LocalDateTime from, LocalDateTime to) {
         Reservation res = new Reservation(id, room, guest, from, to);
-        this.reservations.add(res);
+        reservations.add(res);
     }
 
     public void saveAll() {
         String name = "reservation.csv";
         Path file = Paths.get(Properties.DATA_DIRECTORY.toString(), name);
         StringBuilder sb = new StringBuilder("");
-        for (Reservation reservation : this.reservations) {
+        for (Reservation reservation : reservations) {
             sb.append(reservation.toCSV());
         }
         try {

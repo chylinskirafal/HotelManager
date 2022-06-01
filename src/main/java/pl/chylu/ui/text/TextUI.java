@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TextUI {
-    private final GuestService guestService = new GuestService();
-    private final RoomService roomService = new RoomService();
-    private final ReservationService reservationService = new ReservationService();
+    private final GuestService guestService = GuestService.getInstance();
+    private final RoomService roomService = RoomService.getInstance();
+    private final ReservationService reservationService = ReservationService.getInstance();
 
     private void readNewGuestData(Scanner input) {
         System.out.println("Tworzymy nowego gościa.");

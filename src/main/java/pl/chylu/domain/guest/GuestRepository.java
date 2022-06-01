@@ -14,6 +14,14 @@ import java.util.List;
 
 public class GuestRepository extends Repository {
     List<Guest> guests = new ArrayList<>();
+    private static final GuestRepository instance = new GuestRepository();
+
+    public static GuestRepository getInstance() {
+        return instance;
+    }
+    private GuestRepository() {
+
+    }
 
     Guest createNewGuest(String firstName, String lastName, int age, Gender gender) {
         Guest newGuest = new Guest(findNewId(), firstName, lastName, age, gender);
