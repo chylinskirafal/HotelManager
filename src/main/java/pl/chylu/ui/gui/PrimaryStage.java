@@ -11,7 +11,7 @@ public class PrimaryStage {
 
         MainTabView mainTabView = new MainTabView(primaryStage);
 
-        Scene scene = new Scene(mainTabView.getMainTabs(), 740, 580);
+        Scene scene = new Scene(mainTabView.getMainTabs(), 840, 680);
         scene.getStylesheets().add(getClass().getClassLoader()
                 .getResource("hotelMenager.css").toExternalForm());
         String title = String.format("System rezerwacji hotelu %s (%d)", hotelName, systemVersion);

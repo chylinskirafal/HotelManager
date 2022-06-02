@@ -4,4 +4,4 @@ The data to run the application is still in the text files that should be placed
 
 For example:    C:\ Users \ NameUser
 
-C:\Users\stalo\reservation_system\(guest.csv /room.csv/ reservation.csv)
+C:\Users\NameUser\reservation_system\(guest.csv /room.csv/ reservation.csv)

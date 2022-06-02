@@ -1,4 +1,4 @@
-package pl.chylu.ui.gui;
+package pl.chylu.ui.gui.rooms;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -56,6 +56,7 @@ public class AddNewRoomScene {
         gridPane.add(addNewBedBox, 1, 1);
         VBox bedsVerticalLayout = new VBox(getComboBox());
 
+        //TODO make button to remove last ComboBox
         addNewBedBox.setOnAction(actionEvent -> bedsVerticalLayout.getChildren().add(getComboBox()));
 
         Button addRoom = new Button("Dodaj pokój do bazy");

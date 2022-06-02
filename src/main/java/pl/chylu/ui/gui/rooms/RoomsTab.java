@@ -1,10 +1,8 @@
-package pl.chylu.ui.gui;
+package pl.chylu.ui.gui.rooms;
 
-
-import javafx.scene.Scene;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -53,13 +51,34 @@ public class RoomsTab {
         TableColumn<RoomDTO, Integer> roomSizeColumn = new TableColumn<>("Rozmiar Pokoju");
         roomSizeColumn.setCellValueFactory(new PropertyValueFactory<>("roomSize"));
 
-        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsColumn);
+        TableColumn<RoomDTO, RoomDTO> deleteColumn = new TableColumn<>("Usuń");
+        deleteColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper(value.getValue()));
+
+        deleteColumn.setCellFactory(param -> new TableCell<>() {
+            Button deleteButton = new Button("Usuń!");
+            @Override
+            protected void updateItem(RoomDTO value, boolean empty) {
+                super.updateItem(value, empty);
+                if (value == null) {
+                    setGraphic(null);
+                    return;
+                } else {
+                    setGraphic(deleteButton);
+                    deleteButton.setOnAction(actionEvent -> {
+                        roomService.removeRoom(value.getId());
+                        tableView.getItems().remove(value );
+                    });
+                }
+            }
+        });
+
+        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsColumn, deleteColumn);
         List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
         tableView.getItems().addAll(allAsDTO);
         return tableView;
     }
 
-    Tab getRoomTab() {
+    public Tab getRoomTab() {
         return roomTab;
     }
 }
