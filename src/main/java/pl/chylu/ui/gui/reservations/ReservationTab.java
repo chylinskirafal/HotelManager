@@ -3,6 +3,7 @@ package pl.chylu.ui.gui.reservations;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -56,14 +57,16 @@ public class ReservationTab {
         TableColumn<ReservationDTO, String> lastNameColumn = new TableColumn<>("Nazwisko");
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
 
-        TableColumn<ReservationDTO, Integer> numberRoomColumn = new TableColumn<>("Numer Pokoju");
+        TableColumn<ReservationDTO, Integer> numberRoomColumn = new TableColumn<>("Pokój");
         numberRoomColumn.setCellValueFactory(new PropertyValueFactory<>("numberRoom"));
 
-        TableColumn<ReservationDTO, ReservationDTO> deleteColumn = new TableColumn<>("Usuń");
-        deleteColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper(value.getValue()));
+        TableColumn<ReservationDTO, ReservationDTO> acionColumn = new TableColumn<>("Edytuj/Usuń");
+        acionColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper(value.getValue()));
 
-        deleteColumn.setCellFactory(param -> new TableCell<>() {
-            Button deleteButton = new Button("Usuń!");
+        acionColumn.setCellFactory(param -> new TableCell<>() {
+            Button editButton = new Button("Edytuj");
+            Button deleteButton = new Button("Usuń");
+            HBox hBox = new HBox(editButton, deleteButton);
             @Override
             protected void updateItem(ReservationDTO value, boolean empty) {
                 super.updateItem(value, empty);
@@ -71,7 +74,7 @@ public class ReservationTab {
                     setGraphic(null);
                     return;
                 } else {
-                    setGraphic(deleteButton);
+                    setGraphic(hBox);
                     deleteButton.setOnAction(actionEvent -> {
                         reservationService.removeReservation(value.getId());
                         tableView.getItems().remove(value );
@@ -81,7 +84,7 @@ public class ReservationTab {
         });
 
 
-        tableView.getColumns().addAll(fromColumn, toColumn, firstNameColumn, lastNameColumn, numberRoomColumn, deleteColumn);
+        tableView.getColumns().addAll(fromColumn, toColumn, firstNameColumn, lastNameColumn, numberRoomColumn, acionColumn);
         return tableView;
     }
 

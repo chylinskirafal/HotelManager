@@ -3,6 +3,7 @@ package pl.chylu.ui.gui.guests;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -51,11 +52,13 @@ public class GuestTab {
         TableColumn<GuestDTO, String> genderColumn = new TableColumn<>("Płeć");
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
 
-        TableColumn<GuestDTO, GuestDTO> deleteColumn = new TableColumn<>("Usuń");
-        deleteColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper(value.getValue()));
+        TableColumn<GuestDTO, GuestDTO> acionColumn = new TableColumn<>("Edytuj/Usuń");
+        acionColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper(value.getValue()));
 
-        deleteColumn.setCellFactory(param -> new TableCell<>() {
-            Button deleteButton = new Button("Usuń!");
+        acionColumn.setCellFactory(param -> new TableCell<>() {
+            Button editButton = new Button("Edytuj");
+            Button deleteButton = new Button("Usuń");
+            HBox hBox = new HBox(editButton, deleteButton);
             @Override
             protected void updateItem(GuestDTO value, boolean empty) {
                 super.updateItem(value, empty);
@@ -63,7 +66,7 @@ public class GuestTab {
                     setGraphic(null);
                     return;
                 } else {
-                    setGraphic(deleteButton);
+                    setGraphic(hBox);
                     deleteButton.setOnAction(actionEvent -> {
                         guestService.removeGuest(value.getId());
                         tableView.getItems().remove(value );
@@ -72,7 +75,7 @@ public class GuestTab {
             }
         });
 
-        tableView.getColumns().addAll(firstNameColumn, lastNameColumn, ageColumn, genderColumn, deleteColumn);
+        tableView.getColumns().addAll(firstNameColumn, lastNameColumn, ageColumn, genderColumn, acionColumn);
 
         List<GuestDTO> allAsDTO = guestService.getAllAsDTO();
         tableView.getItems().addAll(allAsDTO);
