@@ -97,4 +97,8 @@ public class ReservationRepository {
     public List<Reservation> getAll() {
         return reservations;
     }
+
+    public void remove(int id) {
+        reservations.remove(id);
+    }
 }

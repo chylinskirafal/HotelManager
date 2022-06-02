@@ -56,4 +56,7 @@ public class ReservationService {
         }
         return result;
     }
+    public void removeReservation(int id) {
+        repository.remove(id);
+    }
 }

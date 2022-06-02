@@ -1,9 +1,7 @@
 package pl.chylu.ui.gui.reservations;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -11,6 +9,7 @@ import javafx.stage.Stage;
 import pl.chylu.domain.ObjectPool;
 import pl.chylu.domain.reservation.ReservationService;
 import pl.chylu.domain.reservation.dto.ReservationDTO;
+import pl.chylu.domain.room.dto.RoomDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,8 +59,29 @@ public class ReservationTab {
         TableColumn<ReservationDTO, Integer> numberRoomColumn = new TableColumn<>("Numer Pokoju");
         numberRoomColumn.setCellValueFactory(new PropertyValueFactory<>("numberRoom"));
 
+        TableColumn<ReservationDTO, ReservationDTO> deleteColumn = new TableColumn<>("Usuń");
+        deleteColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper(value.getValue()));
 
-        tableView.getColumns().addAll(fromColumn, toColumn, firstNameColumn, lastNameColumn, numberRoomColumn);
+        deleteColumn.setCellFactory(param -> new TableCell<>() {
+            Button deleteButton = new Button("Usuń!");
+            @Override
+            protected void updateItem(ReservationDTO value, boolean empty) {
+                super.updateItem(value, empty);
+                if (value == null) {
+                    setGraphic(null);
+                    return;
+                } else {
+                    setGraphic(deleteButton);
+                    deleteButton.setOnAction(actionEvent -> {
+                        reservationService.removeReservation(value.getId());
+                        tableView.getItems().remove(value );
+                    });
+                }
+            }
+        });
+
+
+        tableView.getColumns().addAll(fromColumn, toColumn, firstNameColumn, lastNameColumn, numberRoomColumn, deleteColumn);
         return tableView;
     }
 
