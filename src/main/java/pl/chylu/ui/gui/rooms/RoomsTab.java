@@ -16,16 +16,18 @@ import java.util.List;
 public class RoomsTab {
     private Tab roomTab;
     private RoomService roomService = ObjectPool.getRoomService();
+    private Stage primaryStage;
 
     public RoomsTab(Stage primaryStage) {
         TableView<RoomDTO> tableView = getRoomDTOTableView();
+        this.primaryStage = primaryStage;
 
         Button button = new Button("Stwórz nowy");
         button.setOnAction(actionEvent -> {
             Stage addRoomPopup = new Stage();
             addRoomPopup.initModality(Modality.WINDOW_MODAL);
             addRoomPopup.setScene(new AddNewRoomScene(addRoomPopup, tableView).getMainScene());
-            addRoomPopup.initOwner(primaryStage);
+            addRoomPopup.initOwner(this.primaryStage);
             addRoomPopup.setTitle("Dodawanie nowego pokoju");
             addRoomPopup.showAndWait();
 
@@ -70,6 +72,14 @@ public class RoomsTab {
                     deleteButton.setOnAction(actionEvent -> {
                         roomService.removeRoom(value.getId());
                         tableView.getItems().remove(value );
+                    });
+                    editButton.setOnAction(actionEvent -> {
+                        Stage editRoomPopup = new Stage();
+                        editRoomPopup.initModality(Modality.WINDOW_MODAL);
+                        editRoomPopup.setScene(new EditRoomScene(editRoomPopup, tableView, value).getMainScene());
+                        editRoomPopup.initOwner(primaryStage);
+                        editRoomPopup.setTitle("Dodawanie nowego pokoju");
+                        editRoomPopup.showAndWait();
                     });
                 }
             }
