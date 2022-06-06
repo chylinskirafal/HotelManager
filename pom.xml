@@ -17,12 +17,12 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>13</version>
+            <version>17.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>13</version>
+            <version>17</version>
         </dependency>
     </dependencies>
 
@@ -41,7 +41,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>pl.clockworkjava.App</mainClass>
+                    <mainClass>pl.chylu.App</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -62,10 +62,10 @@
                                 <argument>target/</argument>
 
                                 <argument>--name</argument>
-                                <argument>HotelReservation</argument>
+                                <argument>HotelManager</argument>
 
                                 <argument>--main-jar</argument>
-                                <argument>HotelReservation-1.0-SNAPSHOT.jar</argument>
+                                <argument>HotelManager-1.0-SNAPSHOT.jar</argument>
 
                                 <argument>--main-class</argument>
                                 <argument>pl.clockworkjava.App</argument>
@@ -76,7 +76,7 @@
                                 <argument>--win-dir-chooser</argument>
 
                                 <argument>--module-path</argument>
-                                <argument>C:/Work/javafx-jmods-11.0.2</argument>
+                                <argument>C:/Program Files/Java/javafx-jmods-18.0.1</argument>
 
                                 <argument>--add-modules</argument>
                                 <argument>java.base,javafx.controls,javafx.web,javafx.graphics,javafx.media,java.desktop,javafx.fxml,jdk.charsets</argument>
