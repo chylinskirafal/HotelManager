@@ -1,10 +1,10 @@
 package pl.chylu.domain.guest;
 
-import pl.chylu.util.Properties;
+import pl.chylu.util.SystemUtils;
 
 public enum Gender {
-    MALE(Properties.MALE),
-    FEMALE(Properties.FEMALE);
+    MALE(SystemUtils.MALE),
+    FEMALE(SystemUtils.FEMALE);
 
     private String asStr;
 

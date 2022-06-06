@@ -1,11 +1,11 @@
 package pl.chylu.domain.room;
 
-import pl.chylu.util.Properties;
+import pl.chylu.util.SystemUtils;
 
 public enum BedType {
-    SINGLE(1, Properties.SINGLE_BED),
-    DOUBLE(2, Properties.DOUBLE_BED),
-    KING_SIZE(2, Properties.KING_SIZE);
+    SINGLE(1, SystemUtils.SINGLE_BED),
+    DOUBLE(2, SystemUtils.DOUBLE_BED),
+    KING_SIZE(2, SystemUtils.KING_SIZE);
 
     private int size;
     private String asStr;

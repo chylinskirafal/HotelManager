@@ -6,11 +6,11 @@
 
     <groupId>org.example</groupId>
     <artifactId>HotelManager</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>14</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
     </properties>
 
     <dependencies>
@@ -27,6 +27,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -65,10 +71,10 @@
                                 <argument>HotelManager</argument>
 
                                 <argument>--main-jar</argument>
-                                <argument>HotelManager-1.0-SNAPSHOT.jar</argument>
+                                <argument>HotelManager-1.0.1.jar</argument>
 
                                 <argument>--main-class</argument>
-                                <argument>pl.clockworkjava.App</argument>
+                                <argument>pl.chylu.App</argument>
 
                                 <argument>--type</argument>
                                 <argument>msi</argument>
@@ -79,7 +85,9 @@
                                 <argument>C:/Program Files/Java/javafx-jmods-18.0.1</argument>
 
                                 <argument>--add-modules</argument>
-                                <argument>java.base,javafx.controls,javafx.web,javafx.graphics,javafx.media,java.desktop,javafx.fxml,jdk.charsets</argument>
+                                <argument>
+                                    java.base,javafx.controls,javafx.web,javafx.graphics,javafx.media,java.desktop,javafx.fxml,jdk.charsets
+                                </argument>
                             </arguments>
                         </configuration>
                     </execution>

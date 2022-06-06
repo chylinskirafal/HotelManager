@@ -6,7 +6,7 @@ import pl.chylu.domain.guest.GuestService;
 import pl.chylu.domain.reservation.dto.ReservationDTO;
 import pl.chylu.domain.room.Room;
 import pl.chylu.domain.room.RoomService;
-import pl.chylu.util.Properties;
+import pl.chylu.util.SystemUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,8 +36,8 @@ public class ReservationService {
         //TODO: handle null guest
         Guest guest = this.guestService.getGuestById(guestId);
 
-        LocalDateTime fromWithTime = from.atTime(Properties.HOTEL_NIGHT_START_HOUR, Properties.HOTEL_NIGHT_START_MINUTE);
-        LocalDateTime toWithTime = to.atTime(Properties.HOTEL_NIGHT_END_HOUR, Properties.HOTEL_NIGHT_END_MINUTE);
+        LocalDateTime fromWithTime = from.atTime(SystemUtils.HOTEL_NIGHT_START_HOUR, SystemUtils.HOTEL_NIGHT_START_MINUTE);
+        LocalDateTime toWithTime = to.atTime(SystemUtils.HOTEL_NIGHT_END_HOUR, SystemUtils.HOTEL_NIGHT_END_MINUTE);
 
         if (toWithTime.isBefore(fromWithTime)) {
             throw new IllegalArgumentException();

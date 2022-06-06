@@ -3,7 +3,7 @@ package pl.chylu.domain.room;
 import pl.chylu.domain.ObjectPool;
 import pl.chylu.domain.room.dto.RoomDTO;
 import pl.chylu.exceptions.WrongOptionException;
-import pl.chylu.util.Properties;
+import pl.chylu.util.SystemUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,11 +81,11 @@ public class RoomService {
 
             BedType bedType;
 
-            if (bedTypesAsString.get(i).equals(Properties.SINGLE_BED)) {
+            if (bedTypesAsString.get(i).equals(SystemUtils.SINGLE_BED)) {
                 bedType = BedType.SINGLE;
-            } else if (bedTypesAsString.get(i).equals(Properties.DOUBLE_BED)) {
+            } else if (bedTypesAsString.get(i).equals(SystemUtils.DOUBLE_BED)) {
                 bedType = BedType.DOUBLE;
-            } else if (bedTypesAsString.get(i).equals(Properties.KING_SIZE)) {
+            } else if (bedTypesAsString.get(i).equals(SystemUtils.KING_SIZE)) {
                 bedType = BedType.KING_SIZE;
             } else {
                 throw new WrongOptionException("Wrong option when selecting bed type");
