@@ -31,7 +31,7 @@ public class AddNewGuestScene {
         }));
 
         gridPane.add(firstNameLabel, 0, 0);
-        gridPane.add(firstNameField, 1, 0);
+        gridPane.add(firstNameField, 2, 0);
 
         Label lastNameLabel = new Label("Nazwisko:");
         TextField lastNameField = new TextField();
@@ -43,7 +43,7 @@ public class AddNewGuestScene {
         }));
 
         gridPane.add(lastNameLabel, 0, 1);
-        gridPane.add(lastNameField, 1, 1);
+        gridPane.add(lastNameField, 2, 1);
 
         Label ageLabel = new Label("Wiek:");
         TextField ageField = new TextField();
@@ -57,7 +57,7 @@ public class AddNewGuestScene {
         });
 
         gridPane.add(ageLabel, 0, 2);
-        gridPane.add(ageField, 1, 2);
+        gridPane.add(ageField, 2, 2);
 
         Label genderLabel = new Label("Płeć:");
         ComboBox<String> genderField = new ComboBox<>();
@@ -65,7 +65,7 @@ public class AddNewGuestScene {
         genderField.setValue(SystemUtils.FEMALE);
 
         gridPane.add(genderLabel, 0, 3);
-        gridPane.add(genderField, 1, 3);
+        gridPane.add(genderField, 2, 3);
 
         Button createNewGuestButton = new Button("Utwórz gościa");
 

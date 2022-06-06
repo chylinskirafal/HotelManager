@@ -57,14 +57,14 @@ public class RoomsTab {
         TableColumn<RoomDTO, Integer> roomSizeColumn = new TableColumn<>("Rozmiar pokoju") ;
         roomSizeColumn.setCellValueFactory(new PropertyValueFactory<>("roomSize"));
 
-        TableColumn<RoomDTO, RoomDTO> deleteColumn = new TableColumn<>("Usuń");
+        TableColumn<RoomDTO, RoomDTO> deleteColumn = new TableColumn<>("Modyfikacja");
         deleteColumn.setCellValueFactory( value ->new ReadOnlyObjectWrapper(value.getValue()) );
 
         deleteColumn.setCellFactory( param -> new TableCell<>() {
 
             Button deleteButton = new Button("Usuń");
             Button editButton = new Button("Edytuj");
-            HBox hbox = new HBox(deleteButton, editButton);
+            HBox hbox = new HBox(editButton, deleteButton);
 
             @Override
             protected void updateItem(RoomDTO value, boolean empty) {

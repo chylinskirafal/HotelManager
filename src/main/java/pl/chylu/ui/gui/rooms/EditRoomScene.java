@@ -41,7 +41,7 @@ public class EditRoomScene {
         });
 
         gridPane.add(roomNumberLabel, 0, 0);
-        gridPane.add(roomNumberField, 1, 0);
+        gridPane.add(roomNumberField, 2, 0);
 
         Label bedTypeLabel = new Label("Typy łóżek:");
 
@@ -54,7 +54,7 @@ public class EditRoomScene {
         addNewBedButton.setPadding(Insets.EMPTY);
 
         gridPane.add(bedTypeLabel, 0, 1);
-        gridPane.add(addNewBedButton, 1, 1);
+        gridPane.add(addNewBedButton, 2, 1);
 
         int bedsCount = room.getBedsCount();
 
@@ -97,7 +97,7 @@ public class EditRoomScene {
         editRoomButton.setPadding(new Insets(5, 5, 5, 5));
 
         gridPane.add(bedsVerticalLayout, 1, 2);
-        gridPane.add(editRoomButton, 0, 3);
+        gridPane.add(editRoomButton, 1, 3);
 
 
         this.mainScene = new Scene(gridPane, 640, 480);
