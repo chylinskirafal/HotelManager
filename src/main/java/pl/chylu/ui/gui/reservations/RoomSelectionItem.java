@@ -1,6 +1,7 @@
 package pl.chylu.ui.gui.reservations;
 
 public class RoomSelectionItem {
+
     private int number;
     private int id;
 
@@ -18,6 +19,6 @@ public class RoomSelectionItem {
     }
 
     public String toString() {
-        return String.format("Pokój numer %d", this.number);
+        return String.format("%d", this.number);
     }
 }

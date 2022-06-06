@@ -14,26 +14,29 @@ import pl.chylu.domain.room.dto.RoomDTO;
 import java.util.List;
 
 public class RoomsTab {
+
     private Tab roomTab;
     private RoomService roomService = ObjectPool.getRoomService();
+    private VBox layout;
     private Stage primaryStage;
 
     public RoomsTab(Stage primaryStage) {
+
         TableView<RoomDTO> tableView = getRoomDTOTableView();
         this.primaryStage = primaryStage;
+        Button btn = new Button("Dodaj nowy");
 
-        Button button = new Button("Stwórz nowy");
-        button.setOnAction(actionEvent -> {
-            Stage addRoomPopup = new Stage();
-            addRoomPopup.initModality(Modality.WINDOW_MODAL);
-            addRoomPopup.setScene(new AddNewRoomScene(addRoomPopup, tableView).getMainScene());
-            addRoomPopup.initOwner(this.primaryStage);
-            addRoomPopup.setTitle("Dodawanie nowego pokoju");
-            addRoomPopup.showAndWait();
+        btn.setOnAction(actionEvent -> {
+            Stage stg = new Stage();
+            stg.initModality(Modality.WINDOW_MODAL);
+            stg.initOwner(this.primaryStage);
+            stg.setScene(new AddNewRoomScene(stg, tableView).getMainScene());
+            stg.setTitle("Dodaj nowy pokój");
 
+            stg.showAndWait();
         });
 
-        VBox layout = new VBox(button, tableView);
+        this.layout = new VBox(btn, tableView);
 
         this.roomTab = new Tab("Pokoje", layout);
         this.roomTab.setClosable(false);
@@ -48,45 +51,54 @@ public class RoomsTab {
         TableColumn<RoomDTO, String> bedsColumn = new TableColumn<>("Typy łóżek");
         bedsColumn.setCellValueFactory(new PropertyValueFactory<>("beds"));
 
-        TableColumn<RoomDTO, Integer> bedsCountColumn = new TableColumn<>("Ilość łóżek");
+        TableColumn<RoomDTO, Integer> bedsCountColumn = new TableColumn<>("Ilość łóżek") ;
         bedsCountColumn.setCellValueFactory(new PropertyValueFactory<>("bedsCount"));
 
-        TableColumn<RoomDTO, Integer> roomSizeColumn = new TableColumn<>("Rozmiar Pokoju");
+        TableColumn<RoomDTO, Integer> roomSizeColumn = new TableColumn<>("Rozmiar pokoju") ;
         roomSizeColumn.setCellValueFactory(new PropertyValueFactory<>("roomSize"));
 
-        TableColumn<RoomDTO, RoomDTO> acionColumn = new TableColumn<>("Edytuj/Usuń");
-        acionColumn.setCellValueFactory(value -> new ReadOnlyObjectWrapper(value.getValue()));
+        TableColumn<RoomDTO, RoomDTO> deleteColumn = new TableColumn<>("Usuń");
+        deleteColumn.setCellValueFactory( value ->new ReadOnlyObjectWrapper(value.getValue()) );
 
-        acionColumn.setCellFactory(param -> new TableCell<>() {
-            Button editButton = new Button("Edytuj");
+        deleteColumn.setCellFactory( param -> new TableCell<>() {
+
             Button deleteButton = new Button("Usuń");
-            HBox hBox = new HBox(editButton, deleteButton);
+            Button editButton = new Button("Edytuj");
+            HBox hbox = new HBox(deleteButton, editButton);
+
             @Override
             protected void updateItem(RoomDTO value, boolean empty) {
                 super.updateItem(value, empty);
-                if (value == null) {
+
+                if(value==null) {
                     setGraphic(null);
-                    return;
                 } else {
-                    setGraphic(hBox);
-                    deleteButton.setOnAction(actionEvent -> {
-                        roomService.removeRoom(value.getId());
-                        tableView.getItems().remove(value );
+                    setGraphic(hbox);
+                    deleteButton.setOnAction( actionEvent -> {
+                            roomService.removeRoom(value.getId());
+                            tableView.getItems().remove(value);
                     });
-                    editButton.setOnAction(actionEvent -> {
-                        Stage editRoomPopup = new Stage();
-                        editRoomPopup.initModality(Modality.WINDOW_MODAL);
-                        editRoomPopup.setScene(new EditRoomScene(editRoomPopup, tableView, value).getMainScene());
-                        editRoomPopup.initOwner(primaryStage);
-                        editRoomPopup.setTitle("Dodawanie nowego pokoju");
-                        editRoomPopup.showAndWait();
+                    editButton.setOnAction( actionEvent -> {
+                        Stage stg = new Stage();
+                        stg.initModality(Modality.WINDOW_MODAL);
+                        stg.initOwner(primaryStage);
+                        stg.setScene(new EditRoomScene(stg, tableView, value).getMainScene());
+                        stg.setTitle("Edytuj pokój");
+
+                        stg.showAndWait();
                     });
                 }
+
             }
+
+
         });
 
-        tableView.getColumns().addAll(numberColumn, roomSizeColumn, bedsCountColumn, bedsColumn, acionColumn);
+        tableView.getColumns().addAll(numberColumn,
+                roomSizeColumn, bedsCountColumn, bedsColumn, deleteColumn);
+
         List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
+
         tableView.getItems().addAll(allAsDTO);
         return tableView;
     }

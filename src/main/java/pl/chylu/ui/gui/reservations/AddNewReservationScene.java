@@ -16,87 +16,94 @@ import pl.chylu.domain.room.dto.RoomDTO;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class AddNewReservationScene {
-    private GuestService guestService = ObjectPool.getGuestService();
+
+    private Scene mainScene;
     private RoomService roomService = ObjectPool.getRoomService();
-    private final Scene mainScene;
+    private GuestService guestService = ObjectPool.getGuestService();
     private ReservationService reservationService = ObjectPool.getReservationService();
-    public AddNewReservationScene(Stage addReservationPopup, TableView<ReservationDTO> tableView) {
+
+    public AddNewReservationScene(Stage modalStage, TableView<ReservationDTO> tableView) {
+
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
-        gridPane.setVgap(20);
+        gridPane.setVgap(15);
 
-        Label fromDateLabel = new Label("Data rozpoczęcia:");
+        Label fromDateLabel = new Label("Data rozpoczęcia rezerwacji:");
         DatePicker fromDateField = new DatePicker();
+
         gridPane.add(fromDateLabel, 0, 0);
-        gridPane.add(fromDateField, 2, 0);
+        gridPane.add(fromDateField, 1, 0);
 
-        Label toDateLabel = new Label("Data zakończenia:");
+        Label toDateLabel = new Label("Data zakończenia rezerwacji:");
         DatePicker toDateField = new DatePicker();
+
         gridPane.add(toDateLabel, 0, 1);
-        gridPane.add(toDateField, 2, 1);
+        gridPane.add(toDateField, 1, 1);
 
-        List<GuestSelectionItem> guestSelectionItems = new ArrayList<>();
-        guestService.getAllAsDTO().forEach(dto -> {
-            guestSelectionItems.add(new GuestSelectionItem(dto.getId(),
-                    dto.getFirstName(), dto.getLastName()));
-        });
-
-        Label guestLabel = new Label("Rezerwujący:");
-        ComboBox<GuestSelectionItem> guestField = new ComboBox<>();
-        guestField.getItems().addAll(guestSelectionItems);
-        gridPane.add(guestLabel,0,2);
-        gridPane.add(guestField,2,2);
+        List<RoomDTO> allAsDTO = this.roomService.getAllAsDTO();
 
         List<RoomSelectionItem> roomSelectionItems = new ArrayList<>();
-        List<RoomDTO> allAsDTO = roomService.getAllAsDTO();
 
         allAsDTO.forEach(dto -> {
             roomSelectionItems.add(
-                    new RoomSelectionItem(dto.getNumber(), dto.getId())
-            );
+                    new RoomSelectionItem(dto.getNumber(), dto.getId()));
+        });
+
+        List<GuestSelectionItem> guestSelectionItems = new ArrayList<>();
+
+        this.guestService.getGuestsAsDTO().forEach(dto -> {
+            guestSelectionItems.add(
+                    new GuestSelectionItem(
+                            dto.getFirstName(), dto.getLastName(), dto.getId()));
         });
 
         Label roomLabel = new Label("Pokój:");
         ComboBox<RoomSelectionItem> roomField = new ComboBox<>();
         roomField.getItems().addAll(roomSelectionItems);
-        gridPane.add(roomLabel,0,3);
-        gridPane.add(roomField,2,3);
 
-        Button addReservation = new Button("Dodaj rezerwację!");
-        gridPane.add(addReservation, 0, 4);
+        gridPane.add(roomLabel, 0, 2);
+        gridPane.add(roomField, 1, 2);
 
-        addReservation.setOnAction(actionEvent -> {
+        Label guestLabel = new Label("Rezerwujący:");
+        ComboBox<GuestSelectionItem> guestField = new ComboBox<>();
+        guestField.getItems().addAll(guestSelectionItems);
+
+        gridPane.add(guestLabel, 0, 3);
+        gridPane.add(guestField, 1, 3);
+
+        Button btn = new Button("Utwórz rezerwację");
+
+        btn.setOnAction(actionEvent -> {
             LocalDate from = fromDateField.getValue();
             LocalDate to = toDateField.getValue();
-            int guestID = guestField.getValue().getId();
-            int roomID = roomField.getValue().getId();
+            int guestId = guestField.getValue().getId();
+            int roomId = roomField.getValue().getId();
 
             try {
-                //TODO make throw to no choice guest/room
-                if (to.getDayOfYear() < from.getDayOfYear()) {
-                    throw new IllegalArgumentException();
-                }
-                this.reservationService.createNewReservation(from, to, roomID, guestID);
+                this.reservationService.createNewReservation(from, to, roomId, guestId);
+
                 tableView.getItems().clear();
-                List<ReservationDTO> allSaveAsDTO = reservationService.getAllAsDTO();
-                tableView.getItems().addAll(allSaveAsDTO);
-                addReservationPopup.close();
+                tableView.getItems().addAll(this.reservationService.getReservationsAsDTO());
+                modalStage.close();
             } catch (IllegalArgumentException ex) {
-                Label error = new Label("Niepoprawne daty.");
+                Label error = new Label("Niepoprawne daty rezerwacji");
                 error.setTextFill(Color.RED);
-                gridPane.add(error, 2, 4);
+                gridPane.add(error, 0, 5);
             }
+
+
         });
 
+        gridPane.add(btn, 1, 4);
+
         this.mainScene = new Scene(gridPane, 640, 480);
-        this.mainScene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader()
-                .getResource("hotelMenager.css")).toExternalForm());
+        this.mainScene.getStylesheets().add(getClass().getClassLoader()
+                .getResource("hotelReservation.css").toExternalForm());
     }
 
     public Scene getMainScene() {
-        return mainScene;
+        return this.mainScene;
     }
 }

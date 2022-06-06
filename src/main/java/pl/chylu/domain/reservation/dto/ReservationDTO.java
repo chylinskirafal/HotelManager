@@ -3,21 +3,24 @@ package pl.chylu.domain.reservation.dto;
 import java.time.LocalDateTime;
 
 public class ReservationDTO {
-    private final int id;
-    private final LocalDateTime from;
-    private final LocalDateTime to;
-    private final String firstName;
-    private final String lastName;
-    private final int numberRoom;
-    public static int countDTO;
 
-    public ReservationDTO(int id, LocalDateTime from, LocalDateTime to, String firstName, String lastName, int numberRoom) {
+    private int id;
+    private LocalDateTime from;
+    private LocalDateTime to;
+    private int roomId;
+    private int roomNumber;
+    private int guestId;
+    private String guestName;
+
+    public ReservationDTO(int id, LocalDateTime from, LocalDateTime to, int roomId,
+                          int roomNumber, int guestId, String guestName) {
         this.id = id;
         this.from = from;
         this.to = to;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.numberRoom = numberRoom;
+        this.roomId = roomId;
+        this.roomNumber = roomNumber;
+        this.guestId = guestId;
+        this.guestName = guestName;
     }
 
     public int getId() {
@@ -32,15 +35,19 @@ public class ReservationDTO {
         return to;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public int getRoomId() {
+        return roomId;
     }
 
-    public String getLastName() {
-        return lastName;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
-    public int getNumberRoom() {
-        return numberRoom;
+    public int getGuestId() {
+        return guestId;
+    }
+
+    public String getGuestName() {
+        return guestName;
     }
 }

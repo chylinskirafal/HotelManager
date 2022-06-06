@@ -1,8 +1,7 @@
 package pl.chylu.domain.guest.dto;
 
-import pl.chylu.domain.guest.Gender;
-
 public class GuestDTO {
+
     private final int id;
     private final String firstName;
     private final String lastName;
@@ -36,5 +35,4 @@ public class GuestDTO {
     public String getGender() {
         return gender;
     }
-
 }

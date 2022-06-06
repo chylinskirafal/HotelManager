@@ -7,6 +7,7 @@ import pl.chylu.domain.room.Room;
 import java.time.LocalDateTime;
 
 public class Reservation {
+
     private final int id;
     private final Room room;
     private final Guest guest;
@@ -35,8 +36,10 @@ public class Reservation {
         return this.id;
     }
 
-    public ReservationDTO generateDTO() {
-        return new ReservationDTO(id, from, to, guest.getFirstName(),
-                guest.getLastName(), room.getNumber());
+    public ReservationDTO getAsDTO() {
+        return new ReservationDTO(this.id, this.from,
+                this.to, this.room.getId(),
+                this.room.getNumber(), this.guest.getId(),
+                this.guest.getFirstName() + " " + this.guest.getLastName());
     }
 }

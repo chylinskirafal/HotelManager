@@ -1,20 +1,10 @@
 package pl.chylu.domain.guest;
 
 import pl.chylu.domain.guest.dto.GuestDTO;
-import pl.chylu.domain.room.dto.RoomDTO;
 
 public class Guest {
 
     private final int id;
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
     private final String firstName;
     private final String lastName;
     private final int age;
@@ -28,12 +18,16 @@ public class Guest {
         this.gender = gender;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getInfo() {
-        return String.format("%d. %s %s (%d) (%s)", this.id, this.firstName, this.lastName, this.age, this.gender);
+        return String.format("%d %s %s (%d) (%s)",this.id, this.firstName, this.lastName, this.age, this.gender);
     }
 
     String toCSV() {
-        return String.format("%d,%s,%s,%d,%s%s",
+        return String.format("%s,%s,%s,%d,%s%s",
                 this.id,
                 this.firstName,
                 this.lastName,
@@ -42,12 +36,20 @@ public class Guest {
                 System.getProperty("line.separator"));
     }
 
-    public int getId() {
-        return id;
+    public GuestDTO getAsDTO() {
+        String gender = "Mężczyzna";
+        if (this.gender.equals(Gender.FEMALE)) {
+            gender = "Kobieta";
+        }
+
+        return new GuestDTO(this.id, this.firstName, this.lastName, this.age, gender);
     }
 
-    public GuestDTO generateDTO() {
-        return new GuestDTO(id, firstName, lastName, age, gender.toString());
+    public String getFirstName() {
+        return firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
 }

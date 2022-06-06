@@ -1,9 +1,10 @@
 package pl.chylu.domain.room.dto;
 
 public class RoomDTO {
-    private final int id;
-    private final int number;
-    private final String beds;
+
+    private int id;
+    private int number;
+    private String beds;
     private int bedsCount;
     private int roomSize;
 

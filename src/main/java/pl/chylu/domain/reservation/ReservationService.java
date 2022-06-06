@@ -18,25 +18,33 @@ public class ReservationService {
     private final RoomService roomService = ObjectPool.getRoomService();
     private final GuestService guestService = ObjectPool.getGuestService();
     private final ReservationRepository repository = ObjectPool.getReservationRepository();
+
     private final static ReservationService instance = new ReservationService();
+
+    private ReservationService() {
+
+    }
 
     public static ReservationService getInstance() {
         return instance;
     }
 
-    private ReservationService() {
-    }
-    public Reservation createNewReservation(LocalDate from, LocalDate to, int roomId, int guestId) {
+    public Reservation createNewReservation(LocalDate from, LocalDate to, int roomId, int guestId) throws IllegalArgumentException {
 
         //TODO: handle null room
-        Room room = roomService.getRoomById(roomId);
+        Room room = this.roomService.getRoomById(roomId);
         //TODO: handle null guest
-        Guest guest = guestService.getGuestById(guestId);
+        Guest guest = this.guestService.getGuestById(guestId);
 
         LocalDateTime fromWithTime = from.atTime(Properties.HOTEL_NIGHT_START_HOUR, Properties.HOTEL_NIGHT_START_MINUTE);
         LocalDateTime toWithTime = to.atTime(Properties.HOTEL_NIGHT_END_HOUR, Properties.HOTEL_NIGHT_END_MINUTE);
 
-        return repository.createNewReservation(room, guest, fromWithTime, toWithTime);
+        if (toWithTime.isBefore(fromWithTime)) {
+            throw new IllegalArgumentException();
+        }
+        ;
+
+        return this.repository.createNewReservation(room, guest, fromWithTime, toWithTime);
     }
 
     public void readAll() {
@@ -47,16 +55,21 @@ public class ReservationService {
         this.repository.saveAll();
     }
 
-    public List<ReservationDTO> getAllAsDTO() {
+    public List<ReservationDTO> getReservationsAsDTO() {
+
         List<ReservationDTO> result = new ArrayList<>();
-        List<Reservation> allReservation = repository.getAll();
-        for (Reservation reservation : allReservation) {
-            ReservationDTO dto = reservation.generateDTO();
+
+        List<Reservation> reservations = this.repository.getAll();
+
+        for(Reservation reservation : reservations) {
+            ReservationDTO dto = reservation.getAsDTO();
             result.add(dto);
         }
+
         return result;
     }
+
     public void removeReservation(int id) {
-        repository.remove(id);
+        this.repository.remove(id);
     }
 }

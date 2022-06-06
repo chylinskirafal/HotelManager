@@ -1,16 +1,26 @@
 package pl.chylu.domain.room;
 
-public enum BedType {
-    SINGLE(1),
-    DOUBLE(2),
-    KING_SIZE(2);
+import pl.chylu.util.Properties;
 
-    private int bedSize;
-    BedType(final int bedSize) {
-        this.bedSize = bedSize;
+public enum BedType {
+    SINGLE(1, Properties.SINGLE_BED),
+    DOUBLE(2, Properties.DOUBLE_BED),
+    KING_SIZE(2, Properties.KING_SIZE);
+
+    private int size;
+    private String asStr;
+
+    BedType(int size, String asStr) {
+        this.size = size;
+        this.asStr = asStr;
     }
 
-    public int getBedSize() {
-        return bedSize;
+    public int getSize() {
+        return this.size;
+    }
+
+    @Override
+    public String toString() {
+        return this.asStr;
     }
 }

@@ -8,58 +8,71 @@ import java.util.List;
 
 public class GuestService {
 
-    private static final GuestRepository repository = ObjectPool.getGuestRepository();
-    private static final GuestService instance = new GuestService();
+    private final GuestRepository repository = ObjectPool.getGuestRepository();
 
-    public static GuestService getInstance() {
-        return instance;
-    }
+    private final static GuestService instance = new GuestService();
+
     private GuestService() {
 
     }
 
+    public static GuestService getInstance() {
+        return instance;
+    }
+
     public Guest createNewGuest(String firstName, String lastName, int age, boolean isMale) {
+
         Gender gender = Gender.FEMALE;
 
         if(isMale) {
             gender = Gender.MALE;
         }
+
         return repository.createNewGuest(firstName, lastName, age, gender);
     }
+
     public List<Guest> getAllGuests() {
-        return repository.getAll();
+        return this.repository.getAll();
     }
+
     public void saveAll() {
-        repository.saveAll();
+        this.repository.saveAll();
     }
+
     public void readAll() {
-        repository.readAll();
+        this.repository.readAll();
     }
 
     public void removeGuest(int id) {
-        repository.remove(id);
+        this.repository.remove(id);
     }
 
     public void editGuest(int id, String firstName, String lastName, int age, boolean isMale) {
+
         Gender gender = Gender.FEMALE;
 
         if(isMale) {
             gender = Gender.MALE;
         }
-        repository.edit(id, firstName, lastName, age, gender);
+
+        this.repository.edit(id,firstName,lastName,age,gender);
     }
 
-    public Guest getGuestById(int guestId) {
-        return repository.findById(guestId);
+    public Guest getGuestById(int id) {
+        return this.repository.findById(id);
     }
 
-    public List<GuestDTO> getAllAsDTO() {
+    public List<GuestDTO> getGuestsAsDTO() {
+
         List<GuestDTO> result = new ArrayList<>();
-        List<Guest> allGuest = repository.getAll();
-        for (Guest guest : allGuest) {
-            GuestDTO dto = guest.generateDTO();
+
+        List<Guest> guests = repository.getAll();
+
+        for(Guest guest : guests) {
+            GuestDTO dto = guest.getAsDTO();
             result.add(dto);
         }
+
         return result;
     }
 }

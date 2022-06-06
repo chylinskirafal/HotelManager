@@ -8,9 +8,11 @@ import pl.chylu.domain.room.RoomRepository;
 import pl.chylu.domain.room.RoomService;
 
 public class ObjectPool {
+
     private ObjectPool() {
 
     }
+
     public static GuestService getGuestService() {
         return GuestService.getInstance();
     }
@@ -34,5 +36,4 @@ public class ObjectPool {
     public static ReservationRepository getReservationRepository() {
         return ReservationRepository.getInstance();
     }
-
 }

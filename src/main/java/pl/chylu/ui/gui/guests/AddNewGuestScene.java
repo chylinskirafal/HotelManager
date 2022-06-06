@@ -6,95 +6,101 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import pl.chylu.domain.ObjectPool;
-import pl.chylu.domain.guest.Gender;
 import pl.chylu.domain.guest.GuestService;
 import pl.chylu.domain.guest.dto.GuestDTO;
 import pl.chylu.util.Properties;
 
-import java.util.List;
-import java.util.Objects;
-
 public class AddNewGuestScene {
-    private final Scene mainScene;
-    private final GuestService guestService = ObjectPool.getGuestService();
-    public AddNewGuestScene(Stage addGuestPopup, TableView<GuestDTO> tableView) {
+
+    private Scene mainScene;
+    private GuestService guestService = ObjectPool.getGuestService();
+
+    public AddNewGuestScene(Stage modalStage, TableView<GuestDTO> guestsTableView) {
+
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setVgap(15);
 
-        Label guestFirstNameLabel = new Label("Imię gościa");
-        TextField guestFirstNameField = new TextField();
-        gridPane.add(guestFirstNameLabel, 0, 0);
-        gridPane.add(guestFirstNameField, 2,0);
+        Label firstNameLabel = new Label("Imię:");
+        TextField firstNameField = new TextField();
 
-        guestFirstNameField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
+        firstNameField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
             if (!newValue.matches("\\p{L}*")) {
-                guestFirstNameField.setText(oldValue);
+                firstNameField.setText(oldValue);
             }
         }));
 
-        Label guestLastNameLabel = new Label("Nazwisko gościa");
-        TextField guestLastNameField = new TextField();
-        gridPane.add(guestLastNameLabel, 0, 1);
-        gridPane.add(guestLastNameField, 2,1);
+        gridPane.add(firstNameLabel, 0, 0);
+        gridPane.add(firstNameField, 1, 0);
 
-        guestLastNameField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
+        Label lastNameLabel = new Label("Nazwisko:");
+        TextField lastNameField = new TextField();
+
+        lastNameField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
             if (!newValue.matches("\\p{L}*")) {
-                guestLastNameField.setText(oldValue);
+                lastNameField.setText(oldValue);
             }
         }));
 
-        Label guestAgeLabel = new Label("Wiek gościa");
-        TextField guestAgeField = new TextField();
-        gridPane.add(guestAgeLabel, 0, 2);
-        gridPane.add(guestAgeField, 2,2);
+        gridPane.add(lastNameLabel, 0, 1);
+        gridPane.add(lastNameField, 1, 1);
 
-        guestAgeField.textProperty().addListener((observable, oldValue, newValue) -> {
+        Label ageLabel = new Label("Wiek:");
+        TextField ageField = new TextField();
+
+        ageField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+
             if (!newValue.matches("\\d*")) {
-                guestAgeField.setText(newValue.replaceAll("\\D", ""));
+                ageField.setText(oldValue);
             }
-            int checkAge = Integer.parseInt(newValue);
-            if (checkAge > 150) {
-                guestAgeField.setText(oldValue);
-            }
-        });
-
-
-
-        ComboBox genderBox = new ComboBox<>();
-        genderBox.getItems().addAll(Properties.MALE, Properties.FEMALE);
-        genderBox.setValue(Properties.MALE);
-        Label guestGenderLabel = new Label("Płeć gościa");
-        gridPane.add(genderBox, 2, 3);
-        gridPane.add(guestGenderLabel, 0, 3);
-
-        Button addGuestButton = new Button("Dodaj gościa!");
-        addGuestButton.setOnAction(actionEvent -> {
-            String firstName = guestFirstNameField.getText();
-            String lastName = guestLastNameField.getText();
-            int age = Integer.parseInt(guestAgeField.getText());
-            boolean gender = true;
-            if (genderBox.getValue().equals(Properties.FEMALE)) {
-                gender = false;
-            }
-            guestService.createNewGuest(firstName, lastName, age, gender);
-            tableView.getItems().clear();
-            List<GuestDTO> allAsDTO = guestService.getAllAsDTO();
-            tableView.getItems().addAll(allAsDTO);
-            addGuestPopup.close();
 
         });
 
+        gridPane.add(ageLabel, 0, 2);
+        gridPane.add(ageField, 1, 2);
 
+        Label genderLabel = new Label("Płeć:");
+        ComboBox<String> genderField = new ComboBox<>();
+        genderField.getItems().addAll(Properties.FEMALE, Properties.MALE);
+        genderField.setValue(Properties.FEMALE);
 
+        gridPane.add(genderLabel, 0, 3);
+        gridPane.add(genderField, 1, 3);
 
-        gridPane.add(addGuestButton, 1, 4);
+        Button createNewGuestButton = new Button("Utwórz gościa");
+
+        createNewGuestButton.setOnAction(actionEvent -> {
+
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+
+            int age = Integer.parseInt(ageField.getText());
+
+            String gender = genderField.getValue();
+
+            boolean isMale = false;
+
+            if(gender.equals(Properties.MALE)) {
+                isMale = true;
+            }
+
+            this.guestService.createNewGuest(firstName, lastName, age, isMale);
+
+            guestsTableView.getItems().clear();
+            guestsTableView.getItems().addAll(this.guestService.getGuestsAsDTO());
+
+            modalStage.close();
+        });
+
+        gridPane.add(createNewGuestButton, 1,4);
+
         this.mainScene = new Scene(gridPane, 640, 480);
-        this.mainScene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader()
-                .getResource("hotelMenager.css")).toExternalForm());
+        this.mainScene.getStylesheets().add(getClass().getClassLoader()
+                .getResource("hotelReservation.css").toExternalForm());
+
     }
 
     public Scene getMainScene() {
-        return mainScene;
+        return this.mainScene;
     }
 }
