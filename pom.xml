@@ -6,7 +6,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>HotelManager</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -71,7 +71,7 @@
                                 <argument>HotelManager</argument>
 
                                 <argument>--main-jar</argument>
-                                <argument>HotelManager-1.0.1.jar</argument>
+                                <argument>HotelManager-1.1.0.jar</argument>
 
                                 <argument>--main-class</argument>
                                 <argument>pl.chylu.App</argument>

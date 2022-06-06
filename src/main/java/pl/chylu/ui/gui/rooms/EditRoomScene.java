@@ -21,6 +21,7 @@ public class EditRoomScene {
     private final Scene mainScene;
     private final List<ComboBox<String>> comboBoxes = new ArrayList<>();
     private final RoomService roomService = ObjectPool.getRoomService();
+    private int counter = 0;
 
     public EditRoomScene(Stage stg, TableView<RoomDTO> tableView, RoomDTO room) {
 
@@ -71,7 +72,9 @@ public class EditRoomScene {
 
 
         addNewBedButton.setOnAction(actionEvent -> {
-            bedsVerticalLayout.getChildren().add(getComboBox());
+            if (counter < 5) {
+                bedsVerticalLayout.getChildren().add(getComboBox());
+            }
         });
 
         Button editRoomButton = new Button("Edytuj pokój");
@@ -113,6 +116,7 @@ public class EditRoomScene {
                 SystemUtils.KING_SIZE);
         bedTypeField.setValue(SystemUtils.SINGLE_BED);
         this.comboBoxes.add(bedTypeField);
+        counter++;
         return bedTypeField;
     }
 

@@ -52,9 +52,12 @@ public class AddNewGuestScene {
 
             if (!newValue.matches("\\d*")) {
                 ageField.setText(oldValue);
+            } else if ((Integer.parseInt(newValue)) > 130) {
+                ageField.setText(oldValue);
             }
-
         });
+
+
 
         gridPane.add(ageLabel, 0, 2);
         gridPane.add(ageField, 2, 2);
@@ -80,7 +83,7 @@ public class AddNewGuestScene {
 
             boolean isMale = false;
 
-            if(gender.equals(SystemUtils.MALE)) {
+            if (gender.equals(SystemUtils.MALE)) {
                 isMale = true;
             }
 
@@ -92,7 +95,7 @@ public class AddNewGuestScene {
             modalStage.close();
         });
 
-        gridPane.add(createNewGuestButton, 1,4);
+        gridPane.add(createNewGuestButton, 1, 4);
 
         this.mainScene = new Scene(gridPane, 640, 480);
         this.mainScene.getStylesheets().add(getClass().getClassLoader()

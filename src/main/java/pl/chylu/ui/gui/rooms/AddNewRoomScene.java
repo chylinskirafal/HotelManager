@@ -22,6 +22,7 @@ public class AddNewRoomScene {
     private final Scene mainScene;
     private final List<ComboBox<String>> comboBoxes = new ArrayList<>();
     private final RoomService roomService = ObjectPool.getRoomService();
+    private int counter = 0;
 
     public AddNewRoomScene(Stage stg, TableView<RoomDTO> tableView) {
 
@@ -58,8 +59,11 @@ public class AddNewRoomScene {
 
         VBox bedsVerticalLayout = new VBox(getComboBox());
 
+
         addNewBedButton.setOnAction(actionEvent -> {
-            bedsVerticalLayout.getChildren().add(getComboBox());
+            if (counter < 5) {
+                bedsVerticalLayout.getChildren().add(getComboBox());
+            }
         });
 
         Button addNewRoomButton = new Button("Dodaj nowy pokój");
@@ -101,6 +105,7 @@ public class AddNewRoomScene {
                 SystemUtils.KING_SIZE);
         bedTypeField.setValue(SystemUtils.SINGLE_BED);
         this.comboBoxes.add(bedTypeField);
+        counter++;
         return bedTypeField;
     }
 
