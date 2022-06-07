@@ -1,7 +1,9 @@
 package pl.chylu.domain;
 
+import pl.chylu.domain.guest.GuestDatabaseRepository;
 import pl.chylu.domain.guest.GuestRepository;
 import pl.chylu.domain.guest.GuestService;
+import pl.chylu.domain.reservation.ReservationDatabaseRepository;
 import pl.chylu.domain.reservation.ReservationRepository;
 import pl.chylu.domain.reservation.ReservationService;
 import pl.chylu.domain.room.RoomDatabaseRepository;
@@ -19,7 +21,8 @@ public class ObjectPool {
     }
 
     public static GuestRepository getGuestRepository() {
-        return GuestRepository.getInstance();
+
+        return GuestDatabaseRepository.getInstance();
     }
 
     public static RoomService getRoomService() {
@@ -27,7 +30,7 @@ public class ObjectPool {
     }
 
     public static RoomRepository getRoomRepository() {
-       // return RoomFileRepository.getInstance();
+//        return RoomFileRepository.getInstance();
         return RoomDatabaseRepository.getInstance();
     }
 
@@ -36,6 +39,6 @@ public class ObjectPool {
     }
 
     public static ReservationRepository getReservationRepository() {
-        return ReservationRepository.getInstance();
+        return ReservationDatabaseRepository.getInstance();
     }
 }

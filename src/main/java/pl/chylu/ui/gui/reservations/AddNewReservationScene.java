@@ -48,7 +48,7 @@ public class AddNewReservationScene {
 
         allAsDTO.forEach(dto -> {
             roomSelectionItems.add(
-                    new RoomSelectionItem(dto.getNumber(), dto.getId()));
+                    new RoomSelectionItem(dto.getNumber(), (int)dto.getId()));
         });
 
         List<GuestSelectionItem> guestSelectionItems = new ArrayList<>();
@@ -56,7 +56,7 @@ public class AddNewReservationScene {
         this.guestService.getGuestsAsDTO().forEach(dto -> {
             guestSelectionItems.add(
                     new GuestSelectionItem(
-                            dto.getFirstName(), dto.getLastName(), dto.getId()));
+                            dto.getFirstName(), dto.getLastName(), (int)dto.getId()));
         });
 
         Label roomLabel = new Label("Pokój:");
@@ -79,7 +79,7 @@ public class AddNewReservationScene {
             LocalDate from = fromDateField.getValue();
             LocalDate to = toDateField.getValue();
             int guestId = guestField.getValue().getId();
-            int roomId = roomField.getValue().getId();
+            long roomId = roomField.getValue().getId();
 
             try {
                 this.reservationService.createNewReservation(from, to, roomId, guestId);
