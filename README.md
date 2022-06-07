@@ -1,8 +1,10 @@
 # Hotel Menager App
 ## Project of room reservation system
 
-The data to run the application is still in the text files that should be placed on the system drive in the user tab.
+#### The data to run the application is database
+#### If u find any bugs, please send me mail: 
 
-For example: C:\ Users \ NameUser
+### rafal@chylu.pl
 
-C:\Users\NameUser\reservation_system(guest.csv /room.csv/ reservation.csv)
+## Techology
+### Java / JavaFX / Maven / H2
