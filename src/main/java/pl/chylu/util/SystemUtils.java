@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
@@ -45,5 +49,19 @@ public class SystemUtils {
             throw new RuntimeException(e);
         }
         SystemUtils.SYSTEM_VERSION = props.get("system.version").toString();
+    }
+
+    public void createDataBaseConnection() {
+        try {
+            Class.forName("org.h2.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:h2:~/reservationSystem", "test", "");
+            Statement statement = conn.createStatement();
+            statement.execute("CREATE TABLE IF NOT EXISTS ROOMS(ID INT PRIMARY KEY AUTO_INCREMENT, ROOM_NUMBER INT NOT NULL UNIQUE)");
+            statement.execute("CREATE TABLE IF NOT EXISTS BEDS(ID INT PRIMARY KEY AUTO_INCREMENT, ROOM_ID INT NOT NULL, BED VARCHAR2(55), FOREIGN KEY (ROOM_ID) REFERENCES ROOMS(ID))");
+            System.out.println("Udalo się nawiazac polaczenie z baza danych");
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Blad przy tworzeniu polaczenia z baza danych " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
