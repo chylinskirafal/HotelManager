@@ -14,7 +14,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 public class SystemUtils {
-
     private final Properties props = new Properties();
 
     public static final String HOTEL_NAME = "Overlook";
@@ -34,7 +33,7 @@ public class SystemUtils {
 
     public static final Path DATA_DIRECTORY = Paths.get(
             System.getProperty("user.home"),
-            "reservation_system");
+            "reservation_systems");
     public static final String FEMALE = "Kobieta";
     public static final String MALE = "Mężczyzna";
 
