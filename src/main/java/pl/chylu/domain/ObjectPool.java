@@ -11,33 +11,26 @@ import pl.chylu.domain.room.RoomRepository;
 import pl.chylu.domain.room.RoomService;
 
 public class ObjectPool {
-
+    private final static RoomService roomService = new RoomService();
+    private final static ReservationService reservationService = new ReservationService();
     private ObjectPool() {
-
     }
-
     public static GuestService getGuestService() {
         return GuestService.getInstance();
     }
-
     public static GuestRepository getGuestRepository() {
-
         return GuestDatabaseRepository.getInstance();
     }
-
     public static RoomService getRoomService() {
-        return RoomService.getInstance();
+        return roomService;
     }
-
     public static RoomRepository getRoomRepository() {
 //        return RoomFileRepository.getInstance();
         return RoomDatabaseRepository.getInstance();
     }
-
     public static ReservationService getReservationService() {
-        return ReservationService.getInstance();
+        return reservationService;
     }
-
     public static ReservationRepository getReservationRepository() {
         return ReservationDatabaseRepository.getInstance();
     }

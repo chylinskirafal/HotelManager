@@ -4,6 +4,7 @@ import pl.chylu.domain.room.dto.RoomDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Room {
     private final long id;
@@ -63,5 +64,17 @@ public class Room {
     }
     public List<BedType> getBeds() {
         return this.beds;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return id == room.id &&
+                number == room.number;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, number);
     }
 }
