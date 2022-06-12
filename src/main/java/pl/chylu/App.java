@@ -51,6 +51,4 @@ public class App extends Application {
         roomService.saveAll();
         reservationService.saveAll();
     }
-
-
 }
